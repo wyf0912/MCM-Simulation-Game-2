@@ -11,3 +11,9 @@ MCM2017.out
 MCM2017.pdf
 *.gz
 *.toc
+.idea/workspace.xml
+*.xml
+.idea/MCM-Simulation-Game-2.iml
+混合交通流.pdf
+test.py
+simulate.asv
