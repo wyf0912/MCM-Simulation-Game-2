@@ -136,8 +136,16 @@ The model of Cellular Automata is mainly based the following aspects\\
 \indent\textbf{Changes in the number of cars\\}
 \indent The inflow of vehicles in a section of the road consists of two parts. The first part is the inflow of the starting position of the road. The second part is the flow of cars from auxiliary road to the main road. \\
 \indent The outflow of vehicles include the outflow of the end position of the road and the flow from the main road to auxiliary road.\\
-\indent And the changes in the number of cars will be analyzed in the detail in \ref{changes of cars}.
- 
+\indent And the changes in the number of cars will be analyzed in the detail in \ref{changes of cars}.\\
+
+\indent\textbf{The integral structure of single step of the simulation\\}
+\indent Cellular automata simplifies the problem by discretization of the model. Figure \ref{process} shows the single step of the simulation.
+\begin{figure}[H]	%图1.3
+	\centerline{\includegraphics[height=6.5cm]{process.pdf}}
+	\caption{Single step of the simulation}
+	\label{process}
+\end{figure}
+\indent We set the step length of the simulation to be 1 second. And the simulation results are analyzed and verified in the later paper.
 \subsection{Time Headway}
 \label{headway}
 \subsubsection{The Set of Time Headway}
