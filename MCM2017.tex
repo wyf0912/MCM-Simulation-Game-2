@@ -95,10 +95,27 @@ S_{2}=S_{2}(h)  \\
 \item{Liquid surface heat loss model.\\ }
 \item{contact area of liquid and bathtub heat loss model.\\ }
 \end{itemize}
-\subsection{The Set of Time Headway}
+\subsection{Time Headway}
+\subsubsection{The Set of Time Headway}
 \indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the HT between the two cars needs to be greater than a minimum safety HT. The safety HT is depended on the reaction time of person.\\
 \indent The HT of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the HT of two cars smaller. When the driver of rear is aware that the HT is too small, as the HT of reality is less than the HT he expected, the driver will slow down and increase the HT between two cars.\\
-
+\indent Then the ratio distribution of the headway of the car needs to be determined. We can know from the previous research\upcite{TH}, when there is a minimum safety HT and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\\indent So the random variable follows the SNED model. It means,
+\begin{equation}
+		F(t)=1-e^{-\frac{t_{i}-\tau }{T-\tau}}
+\end{equation}
+\indent Where, \\
+\indent $T$ is the average Time Headway in a road.\\ \indent In traffic flow theory, traffic flow density.\\
+\begin{equation}
+\begin{split}
+ K = \frac{Q}{V}\\
+ D=\frac{1}{K}=\frac{V}{Q}
+\end{split}
+\end{equation}
+\indent Where, \\\indent $K$ is the traffic flow density;\\ \indent $Q$ is the traffic flow;\\\indent $V$ is the average velocity of vehicles;\\\indent $D$ is the average distance of vehicles.\\\indent Because the average Time Headway is the ratio of the average distance $D$ to the average velocity $V $,\\
+\begin{equation}
+	T=\frac{D}{V}=\frac{1}{Q}
+\end{equation}
+\subsubsection{The generation of Time Headway following SNED model}
 \subsection{example}%TEST
  
 \begin{figure}[H]
@@ -136,6 +153,7 @@ S_{2}=S_{2}(h)  \\
 \bibitem{ca2}Takayasu M,Takayasu H.I/f  noise in a traffic model[ j ]. Fractal -complex Geometry Patterns \& Scaling in Nature \& Society,1996,29(12):3119-3127(9)
 \bibitem{ca3}Barlovic R, Santen L, Scnadschneider A. Metas-table states in cellular automate[ J ]. the European Physical Joural B,1998(3): 793-800
 \bibitem{ca4}SHI Jun-qing, CHENG Lin, long Jian-cheng, et al.A New Cellular Automaton Model for Urban Two-way Road Networks [ J ]. Computational Intelligence and Neuroscience, 2014,2014;685047
+\bibitem{TH}Zhang G, Wang Y, Wei H, et al. Examining headway distribution models with urban freeway loop event data[J]. Transportation Research Record Journal of the Transportation Research Board, 2007, 1999(1):141-149.
 \end{thebibliography}
 
 
