@@ -128,19 +128,41 @@ where P,D,V,T,K are column vectors.\\
 \begin{equation}
 \begin{split}
  K = \frac{Q}{V}\\
- D=\frac{1}{K}=\frac{V}{Q}
+ D_{a}=\frac{1}{K}=\frac{V}{Q}
 \end{split}
 \end{equation}
 \indent Where, \\
 \indent $K$ is the traffic flow density;\\ 
 \indent $Q$ is the traffic flow;\\
 \indent $V$ is the average velocity of vehicles;\\
-\indent $D$ is the average distance of vehicles.\\
-\indent Because the average Time Headway is the ratio of the average distance $D$ to the average velocity $V $,\\
+\indent $D_{a}$ is the average distance of vehicles.\\
+\indent Because the average Time Headway is the ratio of the average distance $D_{a}$ to the average velocity $V $,\\
 \begin{equation}
-	T=\frac{D}{V}=\frac{1}{Q}
+	T=\frac{D_{a}}{V}=\frac{1}{Q}
 \end{equation}
+\indent It means the average distance is the reciprocal of the traffic flow.
 \subsubsection{The generation of Time Headway following SNED model}
+\indent When the parameters $T, \tau $ in $F(t)$ are obtained, we need to produce a large number of data that follows the SNED.\\
+\indent MATLAB can only produce a group of data following the uniform distribution. To produce a group of data following $ F(t_{i})=1-e^{-\frac{t_{i}-\tau}{T-\tau}},t_{i}>\tau $, we consider a random variable, 
+\begin{equation}
+	t_{i}=F^{-1}(t_{i})=G(u)=\tau-(T-\tau)\cdot ln(1-u)
+\end{equation}
+\indent $G(u)$ is the inverse function of $F(t)$.\\\indent When $ u \sim U(0,1) $, for some constant number $t_{0}>\tau$,\\\begin{equation}
+\begin{split}
+	P\{t_{i}\leqslant t_{0}\}&=P\{\tau\leqslant t_{i} \leqslant t_{0} \}\\&=P\{ G^{-1}(\tau)\leqslant u \leqslant G^{-1}(t_{0})\}\\
+&=\int_{G^{-1}(\tau)}^{G^{-1}(t_{0})}f(u)du\\
+&=\int_{F(\tau)}^{F(t_{0})}f(u)du\\
+&=\int_{F(\tau)}^{F(t_{0})}1du=F(t_{0})-F(\tau)
+\end{split}
+\end{equation}
+\indent Because the minimum Time Headway is $\tau$, $ t_{i} $must be larger than $\tau$ ,so\\
+\begin{equation}
+	F(\tau)=P{t_{i}<\tau}=0
+\end{equation}
+\begin{equation}
+	P\{t_{i} \leqslant t_{0} \}=F(t_{0})
+\end{equation}
+\indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. 
 \subsection{example}%TEST
  
 \begin{figure}[H]
