@@ -213,9 +213,12 @@ hotmap_q = imfilter(hotmap_q,G,'same');
 
 subplot(211);
 image(hotmap)
-title(sprintf('Time(min):%d',t/60));
+title(sprintf('Vehicle density(k) %d min',t/60));
 subplot(212);
 image(hotmap_q/40)
-title(sprintf('Time(min):%d',t/60));
+title(sprintf('Traffic flow(Q) %d min',t/60));
 colormap jet
+if mod(t,900)==0
+    saveas(gcf,sprintf('fig%d.jpg',t/60));
+end
 end
