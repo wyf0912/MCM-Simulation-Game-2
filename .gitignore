@@ -17,6 +17,7 @@ MCM2017.pdf
 混合交通流.pdf
 test.py
 simulate.asv
+<<<<<<< HEAD
 figures/untitled.fig
 figures/map.jpg
 figures/map.psd
@@ -24,3 +25,9 @@ figures/map.psd
 .texpadtmp/MCM删减后的模板.aux
 .texpadtmp/MCM删减后的模板.log
 .texpadtmp/MCM删减后的模板.out
+=======
+>>>>>>> parent of 5ce98d9... 更新了车流头部和尾部的插入删除
+MCM删减后的模板.pdf
+*.log
+*.out
+MCM删减后的模板.pdf
