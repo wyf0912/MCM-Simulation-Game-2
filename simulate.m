@@ -1,27 +1,42 @@
 function simulate()
-global car_list startKm endKm totalcar LanesIN LanesDE auto_ratio;
+global startKm endKm totalcar LanesIN LanesDE auto_ratio;
 load('data.mat');
 endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
 lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
-pos=cal_pos(lanecar,startKm,endKm,5);
+auto_ratio=0.0;
+init_var(lanecar,auto_ratio)
+step(3600)
+draw_summary()
 auto_ratio=0.1;
-%lanecar_add=[0;totalcar(2:end)-totalcar(1:end-1)]./(LanesIN+LanesDE)*0.08/3600
-%pos_add=cal_pos(lanecar,startKm,endKm,5);
+init_var(lanecar,auto_ratio)
+step(3600)
+draw_summary()
+auto_ratio=0.5;
+init_var(lanecar,auto_ratio)
+step(3600)
+draw_summary()
+auto_ratio=0.9;
+init_var(lanecar,auto_ratio)
+step(3600)
+draw_summary()
+draw_summary_end()
+end
+
+function init_var(lanecar,auto_ratio)
+global car_list startKm endKm;
+pos=cal_pos(lanecar,startKm,endKm,90);
 speed=ones(1,length(pos))*50;
 type=ones(1,length(pos)).*(rand(1,length(pos))>auto_ratio); 
 headway=cal_headway(length(pos));
 headway=headway.*type;
-headway=headway+(type==1)*0.5; %���ó�ͷʱ����
-%N=100000*length(pos);
-%[n,xout]=hist(y,80);   
-%bar(xout,nn,1);  
+headway=headway+(type==1)*0.5;
 car_list=[];
 add_cars(pos,speed,type,headway);
 cal_distance();
-step(3600)
-car_list;
 end
+
+
 
 function headway=cal_headway(len)
 syms t;
@@ -107,7 +122,7 @@ end
 end
 
 function step(time)
-global car_list;
+global car_list speed speed_var;
 speed=zeros(1,time/60);
 speed_var=zeros(1,time/60);
 for i=1:time
@@ -124,30 +139,39 @@ for i=1:time
         speed_var(i/60)=var(car_list(:,3));
     end
 end
-draw_summary(speed,speed_var)
+end
+function draw_summary_end()
+global a b
+figure(2)
+set(gcf,'unit','centimeters','position',[8 2 25.2 7.2]);
+suptitle(sprintf('The proportion of autopilot vehicles'));
 end
 
-function draw_summary(speed, speed_var)
-global auto_ratio;
-figure();
+function draw_summary()
+global speed speed_var a b;
+figure(2)
 subplot(121);
-set(gcf,'unit','centimeters','position',[8 2 25.2 7.2]);
-plot(speed);
-xlabel('time(min)')
-ylabel('velocity(km/h)')
-title(sprintf('Average vehicle velocity'));
-set(gca, 'Position', [0.1 0.2 0.375 0.8])
-subplot(122);
+%set(gcf,'unit','centimeters','position',[8 2 25.2 7.2]);
+a=plot(speed);
+hold on;
+% xlabel('time(min)')
+% ylabel('velocity(km/h)')
+% title(sprintf('Average vehicle velocity'));
+% set(gca, 'Position', [0.1 0.2 0.375 0.8])
+b=subplot(122);
 plot(speed_var);
-title(sprintf('The variance of velocity'));
-xlabel('time(min)')
-ylabel('The variance of velocity')
-set(gca, 'Position', [0.575 0.2 0.375 0.8]);
-suptitle(sprintf('The proportion of autopilot vehicles is %d%%',auto_ratio*100))
+hold on;
+% title(sprintf('The variance of velocity'));
+% xlabel('time(min)')
+% ylabel('The variance of velocity')
+% set(gca, 'Position', [0.575 0.2 0.375 0.8]);
+%suptitle(sprintf('The proportion of autopilot vehicles'));
 end
+
 
 function draw_hotmap(t)
 global total_km car_list;
+figure(1)
 hotmap=zeros(1,fix(total_km/1.2)); %150
 set(gcf,'unit','centimeters','position',[8 15 30 2]);
 for i=1:length(car_list)
@@ -160,5 +184,5 @@ hotmap=interp1([1:fix(total_km/1.2)],hotmap,[1:0.1:fix(total_km/1.2)]);
 image(hotmap)
 title(sprintf('Time(min):%d',t/60));
 colormap jet
-drawnow;
+drawnow
 end
