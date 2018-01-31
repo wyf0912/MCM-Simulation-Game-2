@@ -80,7 +80,8 @@
         $C_{i}$	&$ $ &the $i$ th vehicle\\
         $t_{i}$	&$ $ &the Time Headway between $ C_{i} $ and the front vehicle\\
         $T$	&$s$ &the average Time Headway in a road\\
-        $F(t_{i})$	&$ $ &the distribution function of $t_{i}$\\
+        $F(t_{i})$	&$ $ &the distribution function of $t_{i}$
+\\
         
         \end{tabular}
         \end{table}
@@ -118,14 +119,28 @@ where $P, D, V, T, K$ are column vectors. For example\\
 \begin{equation}
 V=\left [ v_{1},v_{2},...,v_{n-1},v_{n} \right ]^{T}
 \end{equation}
-$P$ is a column vector for all vehicle locations, which unit is kilometer. $D$ is the distance between each car and the previous one. $D$ can be calculated as follows
+\indent $P$ is a column vector for all vehicle locations, which unit is kilometer. $D$ is the distance between each car and the previous one. $D$ can be calculated as follows
 \begin{equation}
 D=[P^{T}(2:n)-P^{T}(1:n-1),0]^{T}
 \end{equation}
-$V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which obeys normal distribution. $T$ is all vehicles' types. There are two kinds of values in $t_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
-\subsection{Time Headway}
-\subsubsection{The Set of Time Headway}
+$V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which obeys normal distribution.  $T$ is the headway of all drivers or self-driving systems. And $K$ is all vehicles' types. The meaning and value of the headway will be given in \ref{headway}. There are two kinds of values in $k_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
 
+\subsubsection{The Integral Structure of Cellular Automata}
+The model of Cellular Automata is mainly based the following aspects\\
+\indent\textbf{Speed change mechanism\\}
+\indent The change of speed is based on the Time Headway, the distance from the front car and the type of the vehicle. The model will be given in \ref{velocity change}.
+
+\indent\textbf{The calculation of position and vehicle distance\\}
+\indent The calculation of position and vehicle distance is based on the speed ($V$) and the position of the last moment. The model will be given in \ref{velocity change}.
+
+\indent\textbf{Changes in the number of cars\\}
+\indent The inflow of vehicles in a section of the road consists of two parts. The first part is the inflow of the starting position of the road. The second part is the flow of cars from auxiliary road to the main road. \\
+\indent The outflow of vehicles include the outflow of the end position of the road and the flow from the main road to auxiliary road.\\
+\indent And the changes in the number of cars will be analyzed in the detail in \ref{changes of cars}.
+ 
+\subsection{Time Headway}
+\label{headway}
+\subsubsection{The Set of Time Headway}
 \indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the HT between the two cars needs to be greater than a minimum safety HT. The safety HT is depended on the reaction time of person.\\
 \indent The HT of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the HT of two cars smaller. When the driver of rear is aware that the HT is too small, as the HT of reality is less than the HT he expected, the driver will slow down and increase the HT between two cars.\\
 \indent Then the ratio distribution of the headway of the car needs to be determined. We can know from the previous research\upcite{TH}, when there is a minimum safety HT and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
@@ -158,9 +173,12 @@ $V$ is a column vector for all vehicle speed, which unit is km/h. The initial va
 \begin{equation}
 	t_{i}=F^{-1}(t_{i})=G(u)=\tau-(T-\tau)\cdot ln(1-u)
 \end{equation}
-\indent $G(u)$ is the inverse function of $F(t)$.\\\indent When $ u \sim U(0,1) $, for some constant number $t_{0}>\tau$,\\\begin{equation}
+\indent $G(u)$ is the inverse function of $F(t)$.\\
+\indent When $ u \sim U(0,1) $, for some constant number $t_{0}>\tau$,\\
+\begin{equation}
 \begin{split}
-	P\{t_{i}\leqslant t_{0}\}&=P\{\tau\leqslant t_{i} \leqslant t_{0} \}\\&=P\{ G^{-1}(\tau)\leqslant u \leqslant G^{-1}(t_{0})\}\\
+	P\{t_{i}\leqslant t_{0}\}&=P\{\tau\leqslant t_{i} \leqslant t_{0} \}\\
+&=P\{ G^{-1}(\tau)\leqslant u \leqslant G^{-1}(t_{0})\}\\
 &=\int_{G^{-1}(\tau)}^{G^{-1}(t_{0})}f(u)du\\
 &=\int_{F(\tau)}^{F(t_{0})}f(u)du\\
 &=\int_{F(\tau)}^{F(t_{0})}1du=F(t_{0})-F(\tau)
@@ -174,7 +192,14 @@ $V$ is a column vector for all vehicle speed, which unit is km/h. The initial va
 	P\{t_{i} \leqslant t_{0} \}=F(t_{0})
 \end{equation}
 \indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. 
-\subsection{example}%TEST
+
+\subsection{The model of calculating $V$}
+\label{velocity change}
+
+\subsection{The model of calculating $P$ and $D$}
+
+\subsection{The model of changes in the number of cars}
+\label{changes of cars}
  
 \begin{figure}[H]
 \centering
