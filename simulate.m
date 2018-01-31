@@ -14,8 +14,13 @@ headway=cal_headway(length(pos));
 headway=headway.*type;
 headway=headway+(type==1)*0.5; %���ó�ͷʱ����
 %N=100000*length(pos);
+<<<<<<< HEAD
 %[n,xout]=hist(y,80);   
 %bar(xout,nn,1);  
+=======
+%[n,xout]=hist(y,80);    %???????????????
+%bar(xout,nn,1);  %??ͼ?֤????????ϸ??ܶȺ??
+>>>>>>> 930bdc17696f5069e24901259989ec5be81e8fa9
 car_list=[];
 add_cars(pos,speed,type,headway);
 cal_distance();
@@ -80,7 +85,11 @@ dv=car_list(:,3)-[car_list(2:end,3);0];
 dv(dv<0)=0;
 time=-tanh((car_list(:,5)-car_list(:,2)./car_list(:,3)*3600)/2);
 delta_v=time.* (1.1+rand(length(car_list),1))*3.6-dv*0.15;
+<<<<<<< HEAD
 delta_v(end)=(rand()-0.5); %最前方的车速度有不稳定
+=======
+delta_v(end)=(rand()-0.5); %?ǰ???ĳ???????㲻??????
+>>>>>>> 930bdc17696f5069e24901259989ec5be81e8fa9
 v=car_list(:,3)+delta_v;
 v(v>60)=60;
 v(v<0)=0;
@@ -98,8 +107,12 @@ if rand()<totalcar(route(1))/(LanesIN(route(1))+LanesDE(route(1)))/24/3600
     type=zeros(1,1).*(rand(1,1)<auto_ratio);
     add_cars(pos,speed,type,cal_headway(1));
 end
+<<<<<<< HEAD
 if rand()<0.01 %随机路边加入车辆的概率
     pos=rand(1,1)*(road_end_km-road_start_km)+road_start_km;
+=======
+if rand()<0.01 %???·?߼?복???ĸ??    pos=rand(1,1)*(road_end_km-road_start_km)+road_start_km;
+>>>>>>> 930bdc17696f5069e24901259989ec5be81e8fa9
     speed=ones(1,1)*30;
     type=zeros(1,1);
     add_cars(pos,speed,type,cal_headway(1));
