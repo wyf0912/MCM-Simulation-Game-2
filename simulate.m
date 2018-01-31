@@ -5,7 +5,7 @@ endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
 lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
 pos=cal_pos(lanecar,startKm,endKm,5);
-auto_ratio=0.0;
+auto_ratio=0.1;
 %lanecar_add=[0;totalcar(2:end)-totalcar(1:end-1)]./(LanesIN+LanesDE)*0.08/3600
 %pos_add=cal_pos(lanecar,startKm,endKm,5);
 speed=ones(1,length(pos))*50;
@@ -116,19 +116,35 @@ for i=1:time
     num_change()
     car_list=sortrows(car_list,1);
     cal_distance()
-    if mod(i,1)==0
+    if mod(i,60)==0
         %plot(car_list(:,1))
         %axis([0 6000 160 410])
         draw_hotmap(i);
-        drawnow;
-        %speed(i/60)=mean(car_list(:,3));
-        %speed_var(i/60)=var(car_list(:,3));
+        speed(i/60)=mean(car_list(:,3));
+        speed_var(i/60)=var(car_list(:,3));
     end
 end
-speed
-speed_var
+draw_summary(speed,speed_var)
 end
 
+function draw_summary(speed, speed_var)
+global auto_ratio;
+figure();
+subplot(121);
+set(gcf,'unit','centimeters','position',[8 2 25.2 7.2]);
+plot(speed);
+xlabel('time(min)')
+ylabel('velocity(km/h)')
+title(sprintf('Average vehicle velocity'));
+set(gca, 'Position', [0.1 0.2 0.375 0.8])
+subplot(122);
+plot(speed_var);
+title(sprintf('The variance of velocity'));
+xlabel('time(min)')
+ylabel('The variance of velocity')
+set(gca, 'Position', [0.575 0.2 0.375 0.8]);
+suptitle(sprintf('The proportion of autopilot vehicles is %d%%',auto_ratio*100))
+end
 
 function draw_hotmap(t)
 global total_km car_list;
@@ -144,4 +160,5 @@ hotmap=interp1([1:fix(total_km/1.2)],hotmap,[1:0.1:fix(total_km/1.2)]);
 image(hotmap)
 title(sprintf('Time(min):%d',t/60));
 colormap jet
+drawnow;
 end

@@ -20,7 +20,7 @@ type=zeros(1,length(pos));
 
 syms t
 
-t=@(t)4-(3-4)*log(1-t);
+t=@(t)4-(6-4)*log(1-t);
 
 u=rand(1,length(pos))*(1-exp(-2));
 
@@ -215,7 +215,7 @@ subplot(211);
 image(hotmap)
 title(sprintf('Vehicle density(k) %d min',t/60));
 subplot(212);
-image(hotmap_q/40)
+image(hotmap_q/30)
 title(sprintf('Traffic flow(Q) %d min',t/60));
 colormap jet
 if mod(t,900)==0

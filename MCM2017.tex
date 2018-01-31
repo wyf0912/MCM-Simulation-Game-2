@@ -127,6 +127,7 @@ $V$ is a column vector for all vehicle speed, which unit is km/h. The initial va
 
 \subsubsection{The Integral Structure of Cellular Automata}
 The model of Cellular Automata is mainly based the following aspects\\
+
 \indent\textbf{Speed change mechanism\\}
 \indent The change of speed is based on the Time Headway, the distance from the front car and the type of the vehicle. The model will be given in \ref{velocity change}.
 
@@ -209,25 +210,23 @@ The model of Cellular Automata is mainly based the following aspects\\
 \subsection{The model of changes in the number of cars}
 \label{changes of cars}
  
-\begin{figure}[H]
-\centering
-\subfigure[When Kp is too small]{
-\begin{minipage}{7cm}
-\centering \includegraphics[scale=0.26]{PID_1.png}       
-\end{minipage}
-}
-\subfigure[When Kp is too large]{
-\begin{minipage}{7cm}
-\centering                                    \includegraphics[scale=0.26]{PID_4.png}        
-\end{minipage}
-}
-\caption{Only use Kp\upcite{test}}
-\label{PID1}
-\end{figure}
-
-
 \section{Simulation Result and Data Analysis}
-
+\begin{figure}[H]
+	\centerline{\includegraphics[height=4cm]{auto_0.eps}}
+	\caption{Single step of the simulation}
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=4cm]{auto_10.eps}}
+	\caption{Single step of the simulation}
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=4cm]{auto_50.eps}}
+	\caption{Single step of the simulation}
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=4cm]{auto_90.eps}}
+	\caption{Single step of the simulation}
+\end{figure}
 \section{Model Validation}
 
 \section{Sensitivity Analysis}
