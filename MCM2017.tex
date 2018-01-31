@@ -110,8 +110,15 @@ We set 5 attributes for each car, including the position ($p$), the distance fro
 	=
 	\left [ P,D,V,T,K \right ]
 \end{equation}
-where P,D,V,T,K are column vectors.\\
-
+where $P, D, V, T, K$ are column vectors. For example\\
+\begin{equation}
+V=\left [ v_{1},v_{2},...,v_{n-1},v_{n} \right ]^{T}
+\end{equation}
+$P$ is a column vector for all vehicle locations, which unit is kilometer. $D$ is the distance between each car and the previous one. $D$ can be calculated as follows
+\begin{equation}
+D=[P^{T}(2:n)-P^{T}(1:n-1),0]^{T}
+\end{equation}
+$V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which obeys normal distribution. $T$ is all vehicles' types. There are two kinds of values in $t_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
 \subsection{Time Headway}
 \subsubsection{The Set of Time Headway}
 
