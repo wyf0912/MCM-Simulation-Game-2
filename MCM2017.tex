@@ -46,8 +46,8 @@
 %Section 1
 \section{Introduction}
 \subsection{Literature review}
-\indent Traffic flow modeling as the basis of traffic control, traffic design, traffic analysis, traffic simulation and traffic control decision making always is the the research focus in traffic engineering field. And it can be divided into macroscopic and microscopic models from the angle of study, mainly using the theory of fluid mechanics and the theory of car following. Due to their accuracy and practicability, these two models play an important role in the development of traffic flow modeling.\\
-\indent The cellular automata (CA) is a kind of grid dynamical model in which time, space and state are discrete, and the space interaction and time causality are local. It has the ability to simulate the spatio-temporal evolution process of complex systems. The study of single lane traffic flow cellular automaton model began in 1986, the most famous of them is the NS model proposed by Nagel and Schreeckenberg in 1992$^{[2]}$. However, this model has a great flaw, and has been gradually improved by follow-up scientists. Such as the T2 model$^{[3]}$ put forward by Takayasu and the VDR model$^{[4]}$ put forward by barlovic. Cellular automata is now always used to calculate traffic flow problems.\\
+\indent Traffic flow modeling as the basis of traffic control, traffic design, traffic analysis, traffic simulation and traffic control decision making always is the the research focus in traffic engineering field. And it can be divided into macroscopic and microscopic models from the angle of study, mainly using the theory of fluid mechanics and the theory of car following\upcite{TF1}. Due to their accuracy and practicability, these two models play an important role in the development of traffic flow modeling\upcite{TF2}.\\
+\indent The cellular automata (CA) is a kind of grid dynamical model in which time, space and state are discrete, and the space interaction and time causality are local. It has the ability to simulate the spatio-temporal evolution process of complex systems. The study of single lane traffic flow cellular automaton model began in 1986, the most famous of them is the NS model proposed by Nagel and Schreeckenberg in 1992\upcite{ca1}. However, this model has a great flaw, and has been gradually improved by follow-up scientists. Such as the T2 model\upcite{ca2} put forward by Takayasu and the VDR model\upcite{ca3} put forward by barlovic. Cellular automata is now always used to calculate traffic flow problems.\\
 
 
 \section{Assumptions}
@@ -112,11 +112,35 @@ We set 5 attributes for each car, including the position ($p$), the distance fro
 \end{equation}
 where P,D,V,T,K are column vectors.\\
 
+\subsection{Time Headway}
+\subsubsection{The Set of Time Headway}
 
-\subsection{The Set of Time Headway}
 \indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the HT between the two cars needs to be greater than a minimum safety HT. The safety HT is depended on the reaction time of person.\\
 \indent The HT of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the HT of two cars smaller. When the driver of rear is aware that the HT is too small, as the HT of reality is less than the HT he expected, the driver will slow down and increase the HT between two cars.\\
-
+\indent Then the ratio distribution of the headway of the car needs to be determined. We can know from the previous research\upcite{TH}, when there is a minimum safety HT and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
+\indent So the random variable follows the SNED model. It means,
+\begin{equation}
+		F(t)=1-e^{-\frac{t_{i}-\tau }{T-\tau}}
+\end{equation}
+\indent Where, \\
+\indent $T$ is the average Time Headway in a road.\\ 
+\indent In traffic flow theory, traffic flow density.\\
+\begin{equation}
+\begin{split}
+ K = \frac{Q}{V}\\
+ D=\frac{1}{K}=\frac{V}{Q}
+\end{split}
+\end{equation}
+\indent Where, \\
+\indent $K$ is the traffic flow density;\\ 
+\indent $Q$ is the traffic flow;\\
+\indent $V$ is the average velocity of vehicles;\\
+\indent $D$ is the average distance of vehicles.\\
+\indent Because the average Time Headway is the ratio of the average distance $D$ to the average velocity $V $,\\
+\begin{equation}
+	T=\frac{D}{V}=\frac{1}{Q}
+\end{equation}
+\subsubsection{The generation of Time Headway following SNED model}
 \subsection{example}%TEST
  
 \begin{figure}[H]
@@ -148,8 +172,13 @@ where P,D,V,T,K are column vectors.\\
 
 \section{References}
 \begin{thebibliography}{99}
-\bibitem{test}Zhenguo Zhao. Formula of enthalpy difference for water surface heat dissipation and its application[J]. Journal of Hydraulic Engineering, 2004(02):34-38.
-
+\bibitem{TF1}CREMER M, LUDWIG J. A Fast Simulation Model for Traffic Flow on the Basis of Boolean Operations [J ] . Mathematics and Computers in Simulation, 1986,28(4): 297-303.
+\bibitem{TF2}Ding Jian-xun, WANG Ni-shang, SHI Qin. A Two-dimensional BML Model of Traffic Flow Considering Overpass Configuration [ J ]. Journal of Transportation Systems Engineering and Information Technology, 2011,11(6): 98-103
+\bibitem{ca1}Nagel K, Schreckenberg M. A cellular automaton model for freeway traffic[ J ].J Phys I : France, 1992,12(2):2221-2229
+\bibitem{ca2}Takayasu M,Takayasu H.I/f  noise in a traffic model[ j ]. Fractal -complex Geometry Patterns \& Scaling in Nature \& Society,1996,29(12):3119-3127(9)
+\bibitem{ca3}Barlovic R, Santen L, Scnadschneider A. Metas-table states in cellular automate[ J ]. the European Physical Joural B,1998(3): 793-800
+\bibitem{ca4}SHI Jun-qing, CHENG Lin, long Jian-cheng, et al.A New Cellular Automaton Model for Urban Two-way Road Networks [ J ]. Computational Intelligence and Neuroscience, 2014,2014;685047
+\bibitem{TH}Zhang G, Wang Y, Wei H, et al. Examining headway distribution models with urban freeway loop event data[J]. Transportation Research Record Journal of the Transportation Research Board, 2007, 1999(1):141-149.
 \end{thebibliography}
 
 
