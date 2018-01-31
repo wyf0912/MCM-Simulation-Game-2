@@ -82,19 +82,37 @@
         \end{table}
 
 \section{Models}
-
+\subsection{Design of Cellular Automata }
+Large quantities of former traffic simulations based on Cellular Automata (CA) indicate that CA model is a feasible and effective method to emulate traffic flow. Space, time and status are all discrete in Cellular Automata. For example, The model abstracts the car into a particle, and time is divided into small units. This feature predigests the simulation process significantly. Besides, the status of a cell is controlled by its neighboring cells following a set of rules, which is much similar to real-life traffic where a car's movement largely depends on its neighboring cars' movements. Therefore, it is rational for us to apply Cellular Automata in solving our problem.
+\\
+\subsubsection{The data structure of cellular automata}
+We set 5 attributes for each car, including the position ($p$), the distance from the front car ($d$), the speed ($v$), the driver's head time ($t$), the type of the car ($k$).\\
+\indent The property vector of each car can be expressed as
 \begin{equation}
-\begin{split}
-h=H(v)  \\
-S_{1}=S_{1}(h) \\
-S_{2}=S_{2}(h)  \\
-\end{split}
+	car_{i}=\left [ p_{i},d_{i},v_{i},t_{i},k_{i} \right ]
 \end{equation}
-\indent example\\
-\begin{itemize}
-\item{Liquid surface heat loss model.\\ }
-\item{contact area of liquid and bathtub heat loss model.\\ }
-\end{itemize}
+\indent The properties of all the cars can be superimposed and combined into a two-dimensional matrix, the matrix is as follows
+\begin{equation}
+	Cars=
+	\begin{bmatrix}
+	   car_{1}\\
+	   car_{2}\\ 
+	   ...\\ 
+	   car_{n}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		p_{1},d_{1},v_{1},t_{1},k_{1}\\
+		p_{2},d_{2},v_{2},t_{2},k_{2}\\ 
+		...\\ 
+		p_{n},d_{n},v_{n},t_{n},k_{n}
+	\end{bmatrix}
+	=
+	\left [ P,D,V,T,K \right ]
+\end{equation}
+where P,D,V,T,K are column vectors.\\
+
+
 \subsection{The Set of Time Headway}
 \indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the HT between the two cars needs to be greater than a minimum safety HT. The safety HT is depended on the reaction time of person.\\
 \indent The HT of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the HT of two cars smaller. When the driver of rear is aware that the HT is too small, as the HT of reality is less than the HT he expected, the driver will slow down and increase the HT between two cars.\\

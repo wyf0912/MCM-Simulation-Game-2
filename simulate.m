@@ -5,11 +5,11 @@ endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
 lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
 pos=cal_pos(lanecar,startKm,endKm,5);
-auto_ratio=0.9;
+auto_ratio=0.0;
 %lanecar_add=[0;totalcar(2:end)-totalcar(1:end-1)]./(LanesIN+LanesDE)*0.08/3600
 %pos_add=cal_pos(lanecar,startKm,endKm,5);
 speed=ones(1,length(pos))*50;
-type=ones(1,length(pos)).*(rand(1,length(pos))>auto_ratio); %0���Զ� 1���ֶ�
+type=ones(1,length(pos)).*(rand(1,length(pos))>auto_ratio); 
 headway=cal_headway(length(pos));
 headway=headway.*type;
 headway=headway+(type==1)*0.5; %���ó�ͷʱ����
@@ -90,7 +90,7 @@ end
 function num_change()
 global car_list road_start_km road_end_km totalcar route LanesIN LanesDE;
 global auto_ratio;
-idx=find(car_list(:,1)>road_end_km);
+idx= car_list(:,1)>road_end_km;
 car_list(idx,:)=[];
 if rand()<totalcar(route(1))/(LanesIN(route(1))+LanesDE(route(1)))/24/3600
     pos=ones(1,1)*road_start_km-(1:1)*0.05;
@@ -98,7 +98,7 @@ if rand()<totalcar(route(1))/(LanesIN(route(1))+LanesDE(route(1)))/24/3600
     type=zeros(1,1).*(rand(1,1)<auto_ratio);
     add_cars(pos,speed,type,cal_headway(1));
 end
-if rand()<0.01 %随机路边加入车辆的概率
+if rand()<0.1 %随机路边加入车辆的概率
     pos=rand(1,1)*(road_end_km-road_start_km)+road_start_km;
     speed=ones(1,1)*30;
     type=zeros(1,1);
@@ -116,13 +116,13 @@ for i=1:time
     num_change()
     car_list=sortrows(car_list,1);
     cal_distance()
-    if mod(i,60)==0
+    if mod(i,1)==0
         %plot(car_list(:,1))
         %axis([0 6000 160 410])
         draw_hotmap(i);
         drawnow;
-        speed(i/60)=mean(car_list(:,3));
-        speed_var(i/60)=var(car_list(:,3));
+        %speed(i/60)=mean(car_list(:,3));
+        %speed_var(i/60)=var(car_list(:,3));
     end
 end
 speed
