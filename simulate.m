@@ -1,21 +1,20 @@
 function simulate()
-global car_list;
+global car_list startKm endKm totalcar LanesIN LanesDE auto_ratio;
 load('data.mat');
-
 endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
 lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
 pos=cal_pos(lanecar,startKm,endKm,5);
+auto_ratio=0.5;
+%lanecar_add=[0;totalcar(2:end)-totalcar(1:end-1)]./(LanesIN+LanesDE)*0.08/3600
+%pos_add=cal_pos(lanecar,startKm,endKm,5);
 speed=ones(1,length(pos))*50;
-type=zeros(1,length(pos));
-syms t
-t=@(t)4-(3-4)*log(1-t);
-u=rand(1,length(pos))*(1-exp(-2));
-headway=t(u);
+type=ones(1,length(pos)).*(rand(1,length(pos))<auto_ratio); 
+headway=cal_headway(length(pos));
+
 %N=100000*length(pos);
 %[n,xout]=hist(y,80);    %分区间统计随机数出现概\
 %bar(xout,nn,1);  %画图验证随机数是否符合概率密度函数
-
 car_list=[];
 add_cars(pos,speed,type,headway);
 cal_distance();
@@ -23,7 +22,15 @@ step(7200)
 car_list;
 end
 
+function headway=cal_headway(len)
+syms t;
+t=@(t)4-(6-4)*log(1-t);
+u=rand(1,len)*(1-exp(-2));
+headway=t(u)/(1-exp(-2));
+end
+
 function pos=cal_pos(lanecar,startKm,endKm,type)
+global road_start_km road_end_km total_km route ;
 switch type
     case 5
         route=1:135;
@@ -34,6 +41,9 @@ switch type
     case 520
         route=210:224;
 end
+road_start_km=startKm(route(1));
+road_end_km=endKm(route(end));
+total_km=road_end_km-road_start_km;
 pos=[];
 for i=route
     temp=linspace(startKm(i),endKm(i),fix(lanecar(i))+1);
@@ -52,8 +62,8 @@ global car_list;
 for i=1:length(pos)
     car_list=[car_list;[pos(i),0,speed(i),type(i),headway(i)]];
 end
-car_list=sortrows(car_list,1);
-cal_distance();
+%car_list=sortrows(car_list,1);
+%cal_distance();
 end
 
 
@@ -76,31 +86,54 @@ v(v<0)=0;
 car_list(:,3)=v;
 end
 
+function num_change()
+global car_list road_start_km road_end_km totalcar route LanesIN LanesDE;
+global auto_ratio;
+idx=find(car_list(:,1)>road_end_km);
+car_list(idx,:)=[];
+if rand()<totalcar(route(1))/(LanesIN(route(1))+LanesDE(route(1)))/24/3600
+    pos=ones(1,1)*road_start_km-(1:1)*0.05;
+    speed=ones(1,1)*50;
+    type=zeros(1,1).*(rand(1,1)<auto_ratio);
+    add_cars(pos,speed,type,cal_headway(1));
+end
+if rand()<0.01 %随机路边加入车辆的概率
+    pos=rand(1,1)*(road_end_km-road_start_km)+road_start_km;
+    speed=ones(1,1)*30;
+    type=zeros(1,1);
+    add_cars(pos,speed,type,cal_headway(1));
+end
+end
 
 function step(time)
-global car_list total_km;;
+global car_list;
 for i=1:time
     change_speed()
     run()
+    num_change()
     car_list=sortrows(car_list,1);
     cal_distance()
     if mod(i,60)==0
         %plot(car_list(:,1))
         %axis([0 6000 160 410])
-        total_km=car_list(end,1)-car_list(1,1)
         draw_hotmap();
         drawnow;
     end
 end
 end
 
+
 function draw_hotmap()
 global total_km car_list;
-hotmap=zeros(1,150);
+hotmap=zeros(1,fix(total_km/1.2)); %150
+set(gcf,'unit','centimeters','position',[8 15 30 2]);
 for i=1:length(car_list)
-    idx=fix((car_list(i,1)-car_list(1,1))/total_km*149)+1;
-    hotmap(idx)=hotmap(idx)+1;
+    idx=fix((car_list(i,1)-car_list(1,1))/total_km*(fix(total_km/1.2)-1))+1;
+    if idx>=0
+        hotmap(idx)=hotmap(idx)+1;
+    end
 end
+hotmap=interp1([1:fix(total_km/1.2)],hotmap,[1:0.1:fix(total_km/1.2)]);
 image(hotmap)
 colormap jet
 end
