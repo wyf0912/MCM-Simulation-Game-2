@@ -347,12 +347,24 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \section{Simulation Result and Data Analysis}
 \subsection{The effects on of the number of lanes}
 \label{lanes}
+We discuss the effects on our model from the number of lanes of roads.\\\indent We use $V_{i}, \alpha_{i}$ index to evaluate the degree of congestion. The number of lanes of roads increases 1,2,3 respectively. And a simulation within 60 minutes is implemented.\\
+\indent The figure below shows the variance of $V_{i}$ and $\alpha_{i}$ within 60 minutes when different number of lanes of roads is added.\\
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5cm]{lanes.eps}}
+	\caption{the influence of adding new lane}	
+\end{figure}\indent From the above figure, when the number of lanes of roads increases, $V_{i}$ will remarkably increase, and the value of $\alpha_{i}$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. \\
 \subsection{The effects of percentage of self-driving in Peak and Non-Peak travel hours}
 The traffic flow is influenced by percentage of self-driving in Peak and Non-Peak travel hours. We discuss the situation in Peak and Non-Peak travel hours. 
 \subsubsection{the effects of Peak and Non-Peak travel hours}
 \begin{itemize}
 \item{\textbf{the actual traffic flow in different time in Peak travel hours.} The quantity of the vehicle density in some time(15min,30min,45min,60min from the beginning) is described by the color in the following figure. }
 \end{itemize}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=2.4cm]{hotmap.png}}
+	\caption{the relationship between color depth and value of thermodynamic diagram}	
+\end{figure}
+\indent We offer a standard color card to show the relationship between the color depth and the value of the thermodynamic diagram.
+
 \begin{figure}[H]
 	\centerline{\includegraphics[height=1.2cm]{1.jpg}}
 	\caption{The vehicle density distribution of the road at 15min}	
@@ -373,11 +385,6 @@ The traffic flow is influenced by percentage of self-driving in Peak and Non-Pea
 \begin{itemize}
 \item{\textbf{the actual traffic flow in defferent time in Non-Peak travel hours.} The quantity of the vehicle density in some time(15min,30min,45min,60min from the beginning) is described by the color in the following figure. }
 \end{itemize}
-\begin{figure}[H]
-	\centerline{\includegraphics[height=2.4cm]{hotmap.png}}
-	\caption{the relationship between color depth and value of thermodynamic diagram}	
-\end{figure}
-\indent We offer a standard color card to show the relationship between the color depth and the value of the thermodynamic diagram.
 \begin{figure}[H]
 	\centerline{\includegraphics[height=1.2cm]{5.jpg}}
 	\caption{The vehicle density distribution of the road at 15min}	
@@ -412,6 +419,8 @@ When different proportion of self-driving are set, we use the evaluation criteri
 \indent And when proportion transfers from $50\% $ to $90\% $, the variation is remarkable. When the proportion reach $90\%$, the $V_{i}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
 
 \subsection{The effects of cooperating systems}
+And then we discuss the effect of the cooperating systems of the cellular automaton. The rule of the cooperating system has been established at $4.5$. \\
+\indent We mainly use two indexes of $V_{i}$ and $\alpha_{i}$ to analyze the model.So taking advantage of the rule of our cooperative relationship, we simulate the cellular automaton under the different percentage of the selfing 
 
 \section{Model Validation}
 \subsection{The Hydromechanics model in Traffic Flow}
@@ -496,7 +505,21 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \subsection{Change of Peak time}
 
 \section{Strengths and Weaknesses}
+\subsection{Strengthes}
+\begin{itemize}
+\item{\textbf{Our model is reliable.}Our model is related with some classic model such as Hydrodynamics and Cellular Automata model, these model are verified to be reliable.}
+\end{itemize}
+\begin{itemize}
+\item{\textbf{Our models are capable of simulating the situation in real process.}The self-driving can improve the efficiency of transportation in our results of models, which is consisted with the real process.}
+\end{itemize}
+\begin{itemize}
+\item{\textbf{Two comprehensive evaluation criteria of the degree of congestion are given.}Our model considers the weaknesses to use average velocity to measure the degree of congestion, so we build the other evaluation criteria.}
+\end{itemize}
+\subsection{Weaknessess}
 
+\begin{itemize}
+\item{\textbf{Our model consider little about some exceptional case.}Once there are exceptional cases like road closure, fog weather and other unpredictable factors, our model will be influenced remarkably.}
+\end{itemize}
 \section{A letter to the Governor's office}
 As the population grows and the number of private cars has increasingly becoming large, the drives will experience long delays when there is congestion in the road. However, it costs a lot to build a new road, and the fundamental problem still can not be solved.\\
 \indent With the progress of science and technology, the technology of self-driving has become more and more mature. We can consider increasing the proportion of self-driving to reduce road congestion.
