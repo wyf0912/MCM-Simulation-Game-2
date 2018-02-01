@@ -205,7 +205,16 @@ The model of Cellular Automata is mainly based the following aspects\\
 
 \subsection{The model of calculating $P$ and $D$}
 \indent $P$ is a column vector including the location of all the vehicles (the unit of $P$ is km). With the process of simulation, $P$ is a vector that varies orderly. So we only need to consider how to determine the initial value of $P$.\\
-\
+\indent In our CA model, vehicles are distributed across the whole road from the beginning of simulation. And we set the difference between every startMilepost and endMilepost as the section. From the given data sheet, we know that the traffic flow is different in different section of the road. So the distribution of vehicles is not uniform.\\
+\indent At the same time, the conclusion is obtained that the length of each section of the road is about 1 to 2 kilometers, and every road has about dozens of sections. So in one section of the road, the distribution has little influence on the whole distribution of vehicles. Therefore, we suppose that in every one section of road, the distribution of the vehicles is uniform. \\
+\indent From the given data sheet, we can get the start and end, The proportion of traffic flow in the peak period accounts for 8\% of the whole and $Q_{i}$ in every section of the road. By calculating, we can get the length of every section $l_{i}$ and the number of vehicles $n_{i}$ at some moment.\\
+\indent We discuss the value of $n_{i}$ in two situation between the rush hour and non peak time of the vehicle. A
+\begin{equation}
+	n_{i}=\begin{cases}
+	&\frac{0.08Q}{3600t_{1}}\cdot\frac{l_{i}}{v_{i}} \indent\indent\indent \indent\quad\text{\,\,in the rush hour }\\ 
+	&\frac{0.92Q}{3600(24-t_{1})}\cdot\frac{l_{i}}{v_{i}}\indent\indent\indent \quad\text{in the non peak time } 
+	\end{cases}
+\end{equation}\indent While $v_{i}$ means the average speed of cars and $t_{i}$ is the length of the rush hour.
 \subsection{The model of calculating $V$}
 \label{velocity change}
 Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway. The difference between actual and expected Time Headway is
