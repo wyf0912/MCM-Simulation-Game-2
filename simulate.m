@@ -4,20 +4,20 @@ load('data.mat');
 endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
 lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
-auto_ratio=0.0;
-init_var(lanecar,auto_ratio)
-step(3600)
-draw_summary()
-lanecar=totalcar./(LanesIN+LanesDE+1).*(endKm-startKm)*0.08/3600/60*3600;
-auto_ratio=0.0;
-init_var(lanecar,auto_ratio)
-step(3600)
-draw_summary()
-lanecar=totalcar./(LanesIN+LanesDE+2).*(endKm-startKm)*0.08/3600/60*3600;
-auto_ratio=0.0;
-init_var(lanecar,auto_ratio)
-step(3600)
-draw_summary()
+%auto_ratio=0.0;
+%init_var(lanecar,auto_ratio)
+%step(3600)
+%draw_summary()
+% lanecar=totalcar./(LanesIN+LanesDE+1).*(endKm-startKm)*0.08/3600/60*3600;
+% auto_ratio=0.0;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+% lanecar=totalcar./(LanesIN+LanesDE+2).*(endKm-startKm)*0.08/3600/60*3600;
+% auto_ratio=0.0;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
 % lanecar=totalcar./(LanesIN+LanesDE+3).*(endKm-startKm)*0.08/3600/60*3600;
 % auto_ratio=0.0;
 % init_var(lanecar,auto_ratio)
@@ -149,7 +149,7 @@ for i=1:time
     if mod(i,60)==0
         %plot(car_list(:,1))
         %axis([0 6000 160 410])
-        draw_hotmap(i);
+        %draw_hotmap(i);
         speed(i/60)=mean(car_list(:,3));
         speed_var(i/60)=var(car_list(:,3));
     end
