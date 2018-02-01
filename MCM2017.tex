@@ -89,6 +89,13 @@
 
 \section{Models}
 \subsection{Data preprocessing}
+Data preprocessing is mainly to extract the data from the Excel and calculate the traffic flow of a single lane. And the daily traffic flow in each lane is\\
+\begin{equation}
+N=Counts/(Decr+Incr)
+\end{equation}
+
+where $Counts$ is Average daily traffic counts Year\_2015, $Decr$ is the Number of Lanes DECR MP direction and $Incr$ is the Number of Lanes Incr MP direction. And the influence of the number of lanes will be discussed in \ref{lanes}.\\
+
 
 \subsection{Design of Cellular Automata }
 Large quantities of former traffic simulations based on Cellular Automata (CA) indicate that CA model is a feasible and effective method to emulate traffic flow. Space, time and status are all discrete in Cellular Automata. For example, The model abstracts the car into a particle, and time is divided into small units. This feature predigests the simulation process significantly. Besides, the status of a cell is controlled by its neighboring cells following a set of rules, which is much similar to real-life traffic where a car's movement largely depends on its neighboring cars' movements. Therefore, it is rational for us to apply Cellular Automata in solving our problem.
@@ -225,7 +232,13 @@ The model of Cellular Automata is mainly based the following aspects\\
 \indent The $p_{i}$ refers to the distance between the $i$th car and the starting point of the road.
 
 \subsubsection{Calculation of $D$}
-After we get the position vector $P$ of all vehicles, we can update the vehicle distance vector $D$.
+After we get the position vector $P$ of all vehicles, we can update the vehicle distance vector $D$. We can update all the data by the operation of the vector.The calculation method is as follows
+\begin{equation}
+\begin{split}
+	d_i=p_{i+1}&-p_{i}\\
+	D=[P(2:n)&-P(1:n-1);0]
+\end{split}
+\end{equation}
 
 \subsection{The model of calculating $V$}
 \label{velocity change}
@@ -267,6 +280,11 @@ where $v_2(n)=0$.\\
 
 \subsubsection{$\Delta V$ of Self-driving car}
 The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.\\
+\indent In addition to having less TH time, autopilot can have a more stable speed. We discuss the speed according to the type of car and it's front car.\\
+
+\textbf{Cooperation between self-driving cars \\}
+
+\textbf{Interaction between self-driving and manual-driving vehicles \\}
 
 \subsection{Model of evaluation criteria for the degree of congestion}\
 \label{evaluation criteria}
@@ -314,6 +332,7 @@ Therefore, our evaluation criteria for the degree of congestion includes: $V_{i}
 \indent It means when the value of $P_{change}[i]$ is smaller than the value of $R_{random}[i]$, $\Delta n_{i}$ is assigned to 1. When the value of $P_{change}[i]$ is larger,  $\Delta n_{i}$ is assigned to 0.
 \section{Simulation Result and Data Analysis}
 \subsection{The effects on of the number of lanes}
+\label{lanes}
 
 \subsection{The effects of Peak and/or average traffic volume}
 
@@ -409,6 +428,17 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \subsection{Change of Peak time}
 
 \section{Strengths and Weaknesses}
+
+\section{A letter to the Governor's office}
+As the population grows and the number of private cars has increasingly becoming large, the drives will experience long delays when there is congestion in the road. However, it costs a lot to build a new road, and the fundamental problem still can not be solved.\\
+\indent With the progress of science and technology, the technology of self-driving has become more and more mature. We can consider increasing the proportion of self-driving to reduce road congestion.
+In our paper, our model discuss the influence on the traffic flow from different proportion of self-driving in peak travel hours and non-peak travel hours. Because the self-driving is controlled by sensors and computers, they will spend little time to make a corresponding reaction. Therefore, the Time Headway between two self-drivings can be very short, and the distance between them can be close.\\ \indent In our model, we can find the larger the proportion of the self-driving is, the more smooth the road is, and the less congestion there is. \\
+\indent At the same time, the self-driving vehicles can arrive at the destination automatically. The driver will not be banned from drinking, sleeping when the vehicles travel on the road.
+We make some suggestion for some policy changes:\\
+\indent 1.Give allowance or impose less taxes when citizens purchase self-driving.\\
+\indent 2.More road toll is paid when the manual-driving passes the toll-gate.\\
+\indent 3.According to the proportion of self-driving, use a few lanes as a special driveway for self-driving vehicles.\\
+\indent Therefore, use a large proportion of self-driving can reduce the congestion effectively. If our suggestion is adopted, the transportation in Washington will be very smooth, and citizens will experience a comfortable and time-saving travel. 
 
 
 \section{References}
