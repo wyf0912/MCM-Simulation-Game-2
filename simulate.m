@@ -18,23 +18,23 @@ auto_ratio=0.0;
 init_var(lanecar,auto_ratio)
 step(3600)
 draw_summary()
-lanecar=totalcar./(LanesIN+LanesDE+3).*(endKm-startKm)*0.08/3600/60*3600;
-auto_ratio=0.0;
+% lanecar=totalcar./(LanesIN+LanesDE+3).*(endKm-startKm)*0.08/3600/60*3600;
+% auto_ratio=0.0;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+auto_ratio=0.1;
 init_var(lanecar,auto_ratio)
 step(3600)
 draw_summary()
-% auto_ratio=0.1;
-% init_var(lanecar,auto_ratio)
-% step(3600)
-% draw_summary()
-% auto_ratio=0.5;
-% init_var(lanecar,auto_ratio)
-% step(3600)
-% draw_summary()
-% auto_ratio=0.9;
-% init_var(lanecar,auto_ratio)
-% step(3600)
-% draw_summary()
+auto_ratio=0.5;
+init_var(lanecar,auto_ratio)
+step(3600)
+draw_summary()
+auto_ratio=0.9;
+init_var(lanecar,auto_ratio)
+step(3600)
+draw_summary()
 draw_summary_end()
 end
 
@@ -200,7 +200,7 @@ image(hotmap)
 title(sprintf('Time(min):%d',t/60));
 colormap jet
 drawnow
-if mod(t,900)==0
-    saveas(gcf,sprintf('fig%d.jpg',t/60));
-end
+% if mod(t,900)==0
+%     saveas(gcf,sprintf('fig%d.jpg',t/60));
+% end
 end
