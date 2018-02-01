@@ -25,7 +25,7 @@ end
 
 function init_var(lanecar,auto_ratio)
 global car_list startKm endKm;
-pos=cal_pos(lanecar,startKm,endKm,90);
+pos=cal_pos(lanecar,startKm,endKm,5);
 speed=ones(1,length(pos))*50;
 type=ones(1,length(pos)).*(rand(1,length(pos))>auto_ratio); 
 headway=cal_headway(length(pos));
@@ -159,7 +159,7 @@ hold on;
 % title(sprintf('Average vehicle velocity'));
 % set(gca, 'Position', [0.1 0.2 0.375 0.8])
 b=subplot(122);
-plot(speed_var);
+plot(speed_var.^0.5./speed);
 hold on;
 % title(sprintf('The variance of velocity'));
 % xlabel('time(min)')
