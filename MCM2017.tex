@@ -130,7 +130,7 @@ $V$ is a column vector for all vehicle speed, which unit is km/h. The initial va
 The model of Cellular Automata is mainly based the following aspects\\
 
 \indent\textbf{Speed change mechanism\\}
-\indent The change of speed is based on the Time Headway, the distance from the front car and the type of the vehicle. The model will be given in \ref{velocity change}.
+\indent The change of speed is based on the Time Headway, the distance from the front car, the speed of the front car, and the type of the vehicle. The model will be given in \ref{velocity change}.
 
 \indent\textbf{The calculation of position and vehicle distance\\}
 \indent The calculation of position and vehicle distance is based on the speed ($V$) and the position of the last moment. The model will be given in \ref{velocity change}.
@@ -203,10 +203,14 @@ The model of Cellular Automata is mainly based the following aspects\\
 \end{equation}
 \indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. 
 
+\subsection{The model of calculating $P$ and $D$}
+
 \subsection{The model of calculating $V$}
 \label{velocity change}
-
-\subsection{The model of calculating $P$ and $D$}
+Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway.
+\begin{equation}
+	\Delta t_{i}=t_{i}-\frac{d_{i}}{v_{i}}
+\end{equation}
 
 \subsection{The model of changes in the number of cars}
 \label{changes of cars}
@@ -217,13 +221,25 @@ The model of Cellular Automata is mainly based the following aspects\\
 	\caption{Single step of the simulation}
 \end{figure}
 \section{Model Validation}
-\subsection{The Hydromechanics model in Traffic Flow}	The related search use The Hydromechanics model to describe the process of traffic flow.\\\indent\textbf{Aggregation wave}\\\indent	A traffic flow wave moves from a low density to a high density state. For example, when the front road is very crowded, the front vehicles will speed down, and the rear car will speed down one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\\indent \textbf{Seperation wave}\\\indent	A traffic flow wave moves from a high density to a low density state. For example, when the front road is very smooth, the front vehicles will speed up, and the rear car will speed up one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\\indent \textbf{Fluctuation of traffic flow}\\\indent		Because of the existence of Aggregation wave and Seperation wave, some congested or smooth situation in the road will be passed by the wave rather than gather at a certain section of the road.\\\indent \textbf{The speed of wave $W$}\\\indent	The speed of Aggregation wave or Seperation wave.\\
+\subsection{The Hydromechanics model in Traffic Flow}
+	The related search use The Hydromechanics model to describe the process of traffic flow.\\
+\indent\textbf{Aggregation wave}\\
+\indent	A traffic flow wave moves from a low density to a high density state. For example, when the front road is very crowded, the front vehicles will speed down, and the rear car will speed down one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\
+\indent \textbf{Seperation wave}\\
+\indent	A traffic flow wave moves from a high density to a low density state. For example, when the front road is very smooth, the front vehicles will speed up, and the rear car will speed up one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\
+\indent \textbf{Fluctuation of traffic flow}\\
+\indent		Because of the existence of Aggregation wave and Seperation wave, some congested or smooth situation in the road will be passed by the wave rather than gather at a certain section of the road.\\
+\indent \textbf{The speed of wave $W$}\\
+\indent	The speed of Aggregation wave or Seperation wave.\\
 \subsection{The calculation of $W$}
-\indent The state of the traffic flow is described by the $K,v$.\\\indent Suppose the initial state is $(K_{1}, v_{1})$, which means there are $K_{1}$ vehicles per meter, and the velocity of the vehicles is $v_{1}$. And the state of the next moment is $(K_{2}, v_{2})$. \\\indent The $W$ is calculated by the equation:
+\indent The state of the traffic flow is described by the $K,v$.\\
+\indent Suppose the initial state is $(K_{1}, v_{1})$, which means there are $K_{1}$ vehicles per meter, and the velocity of the vehicles is $v_{1}$. And the state of the next moment is $(K_{2}, v_{2})$. \\
+\indent The $W$ is calculated by the equation:
 \begin{equation}
 	W=\frac{K_{1}v_{1}-K_{2}v_{2}}{K_{1}-K_{2}}
 \end{equation}
-\subsection{The discussion about the wave}When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a high density state. So the wave is an aggregation wave. And if $ Q_{2}>Q_{1} $, the $W$ is a positive value, which means the direction of the aggregation wave is the same as that of the traffic flow. If $ Q_{1}<Q_{2} $, the $W$ is a negative value, which means the direction of the aggregation wave is opposite to that of the traffic flow. \\
+\subsection{The discussion about the wave}
+When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a high density state. So the wave is an aggregation wave. And if $ Q_{2}>Q_{1} $, the $W$ is a positive value, which means the direction of the aggregation wave is the same as that of the traffic flow. If $ Q_{1}<Q_{2} $, the $W$ is a negative value, which means the direction of the aggregation wave is opposite to that of the traffic flow. \\
 \indent And we can discuss the situation when $K_{2}<K_{1}$The table below shows the different situation.\\
 \begin{table}[H]
         \setlength{\abovecaptionskip}{0pt}
