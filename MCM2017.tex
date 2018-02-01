@@ -519,7 +519,13 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 
 \section{Sensitivity Analysis}
 \subsection{Initial velocity of simulation}
-
+\indent Our initial simulation condition is set to the starting speed of all vehicles is 50mile/h. In order to verify the stability of our model to the parameter $v_{initial}$, we set the parameter to 20,30,40,50 mile/hour, and get the following figure by simulation
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5.6cm]{initialspeed.eps}}
+	\caption{The proportion of self-driving cars(peak travel hours)}	
+\end{figure}
+\indent Through the picture, we can find that at different initial speeds, after a period of time, the simulation results are basically the same. And we can find the changing ranges of A and B are both small. (The simulation conditions are Highway 90, 10\% of the self-driving vehicle ratio.)\\
+\indent So we verify the stability of our model to the parameter $v_{initial}$
 \subsection{Change of HT}
 
 \subsection{Change of Peak time}
