@@ -286,7 +286,7 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 
 \textbf{Interaction between self-driving and manual-driving vehicles \\}
 
-\subsection{Model of evaluation criteria for the degree of congestion}\
+\subsection{Model of evaluation criteria for the degree of congestion}
 \label{evaluation criteria}
 \subsubsection{Use $V_{i}$ to evaluate the degree of congestion}
 \begin{itemize}
@@ -320,8 +320,8 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars at unit time as $\Delta n$. And the traffic conditions on the road divided into the peak hour and non peak hour. We can get
 \begin{equation}
 	\Delta n=\begin{cases}
-	&(Q_{i}-Q_{i-1})\cdot \frac{0.08}{t_{i}\cdot 3600} \indent\indent\indent \indent\quad\text{\,\,in the peak time }\\ 
-	&(Q_{i}-Q_{i-1})\cdot \frac{0.92}{(24-t_{i})\cdot 3600}\indent\indent\indent \quad\text{in the non-peak time } 
+	&(Q_{i}-Q_{i-1})\cdot \frac{0.08}{t_{i}\cdot 3600} \indent\indent \indent\quad\text{\,\,in the peak time }\\ 
+	&(Q_{i}-Q_{i-1})\cdot \frac{0.92}{(24-t_{i})\cdot 3600}\indent\indent \quad\text{in the non-peak time } 
 	\end{cases}
 \end{equation}
 \indent Where i means the $i$th road section. \\
@@ -339,8 +339,8 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \indent The situation of vehicles flow is 
 \begin{equation}
 	\Delta n_{i}=\begin{cases}
-	&0 \indent\indent\indent \indent\quad\text{\,\,if \,\, $P_{change}[i] < R_{random}[i]$}\\ 
-	&1 \indent\indent\indent\indent \quad\text{\,\,if \,\, $P_{change}[i] > R_{random}[i]$} 
+	&0 \indent\indent\indent \quad\text{\,\,if \,\, $P_{change}[i] < R_{random}[i]$}\\ 
+	&1 \indent\indent\indent \quad\text{\,\,if \,\, $P_{change}[i] > R_{random}[i]$} 
 	\end{cases}
 \end{equation}
 \indent It means when the value of $P_{change}[i]$ is smaller than the value of $R_{random}[i]$, $\Delta n_{i}$ is assigned to 1. When the value of $P_{change}[i]$ is larger,  $\Delta n_{i}$ is assigned to 0.
@@ -351,7 +351,7 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \subsection{The effects of Peak and/or average traffic volume}
 
 \subsection{The effects of percentage of vehicles using self-driving}
-When different proportion of self-driving are set, we use the evaluation criteria $V_{i},\alpha_{i}$ in \ref{evaluation criterion} to evaluate the degree of congestion. \\
+When different proportion of self-driving are set, we use the evaluation criteria $V_{i},\alpha_{i}$ in \ref{evaluation criteria} to evaluate the degree of congestion. \\
 \indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes are obtained respectively.\\
 \indent The figure below shows within the non-peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
 \begin{figure}[H]
@@ -371,15 +371,19 @@ The figure below shows within the peak travel hours, the variations of $V_{i}$ a
 
 \section{Model Validation}
 \subsection{The Hydromechanics model in Traffic Flow}
-	The related search use The Hydromechanics model to describe the process of traffic flow.\\
-\indent\textbf{Aggregation wave}\\
-\indent	A traffic flow wave moves from a low density to a high density state. For example, when the front road is very crowded, the front vehicles will speed down, and the rear car will speed down one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\
-\indent \textbf{Seperation wave}\\
-\indent	A traffic flow wave moves from a high density to a low density state. For example, when the front road is very smooth, the front vehicles will speed up, and the rear car will speed up one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\
-\indent \textbf{Fluctuation of traffic flow}\\
-\indent		Because of the existence of Aggregation wave and Seperation wave, some congested or smooth situation in the road will be passed by the wave rather than gather at a certain section of the road.\\
-\indent \textbf{The speed of wave $W$}\\
-\indent	The speed of Aggregation wave or Seperation wave.\\
+The related search use The Hydromechanics model to describe the process of traffic flow.
+\begin{itemize}
+\item{\textbf{Aggregation wave.} A traffic flow wave moves from a low density to a high density state. For example, when the front road is very crowded, the front vehicles will speed down, and the rear car will speed down one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.}
+\end{itemize}
+\begin{itemize}
+\item{\textbf{Seperation wave.} A traffic flow wave moves from a high density to a low density state. For example, when the front road is very smooth, the front vehicles will speed up, and the rear car will speed up one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.}
+\end{itemize}
+\begin{itemize}
+\item{\textbf{Fluctuation of traffic flow.} Because of the existence of Aggregation wave and Seperation wave, some congested or smooth situation in the road will be passed by the wave rather than gather at a certain section of the road.}
+\end{itemize}
+\begin{itemize}
+\item{\textbf{The speed of wave $W$.} The speed of Aggregation wave or Seperation wave.}
+\end{itemize}
 \subsection{The calculation of $W$}
 \indent The state of the traffic flow is described by the $K,v$.\\
 \indent Suppose the initial state is $(K_{1}, v_{1})$, which means there are $K_{1}$ vehicles per meter, and the velocity of the vehicles is $v_{1}$. And the state of the next moment is $(K_{2}, v_{2})$. \\
