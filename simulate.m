@@ -25,7 +25,7 @@ end
 
 function init_var(lanecar,auto_ratio)
 global car_list startKm endKm;
-pos=cal_pos(lanecar,startKm,endKm,5);
+pos=cal_pos(lanecar,startKm,endKm,90);
 speed=ones(1,length(pos))*50;
 type=ones(1,length(pos)).*(rand(1,length(pos))>auto_ratio); 
 headway=cal_headway(length(pos));
@@ -185,4 +185,7 @@ image(hotmap)
 title(sprintf('Time(min):%d',t/60));
 colormap jet
 drawnow
+if mod(t,900)==0
+    saveas(gcf,sprintf('fig%d.jpg',t/60));
+end
 end
