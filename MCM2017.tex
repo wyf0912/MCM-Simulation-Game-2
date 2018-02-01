@@ -160,8 +160,8 @@ The model of Cellular Automata is mainly based the following aspects\\
 \indent In traffic flow theory, traffic flow density.\\
 \begin{equation}
 \begin{split}
- K = \frac{Q}{V}\\
- D_{a}=\frac{1}{K}=\frac{V}{Q}
+ K &= \frac{Q}{V}\\
+ D_{a}&=\frac{1}{K}=\frac{V}{Q}
 \end{split}
 \end{equation}
 \indent Where, \\
@@ -360,13 +360,13 @@ We discuss the effects on our model from the number of lanes of roads.\\
 	\caption{the influence of adding new lane}	
 \end{figure}
 \indent From the above figure, when the number of lanes of roads increases, $V_{i}$ will remarkably increase, and the value of $\alpha_{i}$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. 
+\subsubsection{When to set lanes to be dedicated to the self-driving cars}
+\indent For each road, we can get the tipping point where we can set up accommodation lanes to make the road more smooth.\\\indent We took the 90th road for example. We compare the $V_{90}$ when two and no accommodation lanes are set up with different proportion of self-driving cars.\\\indent The horizontal ordinate represents the different proportion of self-driving cars, and the vertical ordinate represents the value of $V_{90}$.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=7.2cm]{bili.eps}}
 	\caption{the change of average speed with the proportion of self-driving vehicles}	
 \end{figure}
-\indent In the above figure, there is an intersection of the two curves. The intersection can be regarded as a tipping point when we will need to set up accommodation lanes for self-driving cars. We can know that the tipping point is approximately $35\%$.\\\indent When the proportion of self-driving is lower than $35\%$, because the number of the self-driving cars is small, the utilization rate of the road is not high, Therefore, $V_{90}$ is lower than the road without accommodation lanes. \\\indent When the proportion of self-driving is higher than %35\%%, because the self-driving cars will drive on the road smoothly at a fast velocity. The utilization rate of the road is high. Therefore, $V_{90}$ is larger, and the road is more smooth.\\
-\subsubsection{When to set lanes to be dedicated to the self-driving cars}
-\indent For each road, we can get the tipping point where we can set up accommodation lanes to make the road more smooth.\\\indent We took the 90th road for example. We compare the $V_{90}$ when two and no accommodation lanes are set up with different proportion of self-driving cars.\\\indent The horizontal ordinate represents the different proportion of self-driving cars, and the vertical ordinate represents the value of $V_{90}$.\\
+\indent In the above figure, there is an intersection of the two curves. The intersection can be regarded as a tipping point when we will need to set up accommodation lanes for self-driving cars. We can know that the tipping point is approximately $35\%$.\\\indent When the proportion of self-driving is lower than $35\%$, because the number of the self-driving cars is small, the utilization rate of the road is not high, Therefore, $V_{90}$ is lower than the road without accommodation lanes. \\\indent When the proportion of self-driving is higher than 35\%, because the self-driving cars will drive on the road smoothly at a fast velocity. The utilization rate of the road is high. Therefore, $V_{90}$ is larger, and the road is more smooth.\\
 \subsection{The effects of percentage of self-driving in Peak and Non-Peak travel hours}
 The traffic flow is influenced by percentage of self-driving in Peak and Non-Peak travel hours. We discuss the situation in Peak and Non-Peak travel hours. 
 \subsubsection{the effects of Peak and Non-Peak travel hours}
