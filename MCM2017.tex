@@ -98,8 +98,8 @@ where $Counts$ is Average daily traffic counts Year\_2015, $Decr$ is the Number 
 
 
 \subsection{Design of Cellular Automata }
-Large quantities of former traffic simulations based on Cellular Automata (CA) indicate that CA model is a feasible and effective method to emulate traffic flow. Space, time and status are all discrete in Cellular Automata. For example, The model abstracts the car into a particle, and time is divided into small units. This feature predigests the simulation process significantly. Besides, the status of a cell is controlled by its neighboring cells following a set of rules, which is much similar to real-life traffic where a car's movement largely depends on its neighboring cars' movements. Therefore, it is rational for us to apply Cellular Automata in solving our problem.
-\\
+Large quantities of former traffic simulations based on Cellular Automata (CA) indicate that CA model is a feasible and effective method to emulate traffic flow. Space, time and status are all discrete in Cellular Automata. \\
+\indent For example, The model abstracts the car into a particle, and time is divided into small units. This feature predigests the simulation process significantly. Besides, the status of a cell is controlled by its neighboring cells following a set of rules, which is much similar to real-life traffic where a car's movement largely depends on its neighboring cars' movements. Therefore, it is rational for us to apply Cellular Automata in solving our problem.\\
 \subsubsection{The data structure of cellular automata}
 We set 5 attributes for each car, including the position ($p$), the distance from the front car ($d$), the speed ($v$), the driver's head time ($t$), the type of the car ($k$).\\
 \indent The property vector of each car can be expressed as
@@ -287,6 +287,7 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \textbf{Interaction between self-driving and manual-driving vehicles \\}
 
 \subsection{Model of evaluation criteria for the degree of congestion}
+\label{evaluation criterion}
 An evaluation criteria is built to evaluate the degree of congestion.\\ 
 \indent When the speed distribution of all the vehicles on the road is very uniform, or even the speed of each vehicle is almost the same, the vehicles on the whole section of road needn't speed up or speed down. Each vehicle can keep the same fast speed, and because every two vehicles can be regarded as relatively stationary, there will almost be no congestion. Because the speed distribution is very uniform, the deviation between the speed and the average speed of all the vehicles is small.\\
 \indent When there is a congestion on a road, the average velocity of the vehicles must be slow. When there is a congestion only in one part of the road, the velocity in this part must be much lower than the average velocity $ V_{i} $. So the speed distribution must be not uniform. Therefore, the deviation between the speed and the average speed of each vehicle is large.\\  
@@ -311,15 +312,21 @@ Therefore, our evaluation criteria for the degree of congestion includes: $V_{i}
 \subsection{The effects of Peak and/or average traffic volume}
 
 \subsection{The effects of percentage of vehicles using self-driving}
-\begin{figure}[H]
-	\centerline{\includegraphics[height=5cm]{auto_all(5).eps}}
-	\caption{Single step of the simulation}
-\end{figure}
-
+When different proportion of self-driving are set, we use the evaluation criteria $V_{i},\alpha_{i}$ in \ref{evaluation criterion} to evaluate the degree of congestion. \\
+\indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes are obtained respectively.\\
+\indent The figure below shows within the non-peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5cm]{auto_all(5)-non-peak.eps}}
 	\caption{Single step of the simulation}
 \end{figure}
+The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5cm]{auto_all(5).eps}}
+	\caption{Single step of the simulation}
+\end{figure}
+\indent The above figure shows in peak travel hours or non-peak hours, when the proportion of self-driving increases, the $V_{i}$ will increase and the $\alpha_{i}$ will decrease, which indicates the congestion will decrease with the proportion of self-driving increasing.\\
+\indent And when proportion transfers from $50\%$ to $90\%$, the variation is remarkable. When the proportion reach $90\%$, the $V_{i}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
+
 
 \subsection{The effects of cooperating systems}
 
