@@ -283,9 +283,25 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \indent In addition to having less TH time, autopilot can have a more stable speed. We discuss the speed according to the type of car and it's front car.\\
 
 \textbf{Cooperation between self-driving cars \\}
+\indent If the types of car and it's front car are both self-driving car, we can assume that when the distance between the two cars is in a certain range, the rear car can keep the same speed with the front car.\\
+\indent The rules are described in the mathematical language as follows
+\begin{equation}
+\left\{\begin{matrix}
+v_i=v_{i+1} &if\indent p_{i+1}-p_{i}<d_{min} \\ 
+v_i=v_i+dv& else
+\end{matrix}\right.
+\end{equation}
 
 \textbf{Interaction between self-driving and manual-driving vehicles \\}
-
+\indent When the front is manual-driving car, the rear car can not predict the change of speed well, so based on the above rules, we add random velocity perturbations.
+\indent The rules are described in the mathematical language as follows
+\begin{equation}
+\left\{\begin{matrix}
+	v_i=v_{i+1}+r &if\indent p_{i+1}-p_{i}<d_{min} \\ 
+	v_i=v_i+dv& else
+\end{matrix}\right.
+\end{equation}
+where $r$ is a random variable, and $dv$ is calculated the same as manual-driving car.
 \subsection{Model of evaluation criteria for the degree of congestion}
 \label{evaluation criteria}
 \subsubsection{Use $V_{i}$ to evaluate the degree of congestion}
@@ -371,7 +387,8 @@ The traffic flow is influenced by percentage of self-driving in Peak and Non-Pea
 \end{figure}
 \indent\indent In Non-Peak travel hours, the color is light, so the actual road is very smooth, and all the vehicles can travel fast. And the density of the road is small, so there is almost no congestion.
 \begin{itemize}
-\item{\textbf{the actual traffic flow in defferent time in Non-Peak travel hours.} The quantity of the vehicle density in some time(15min,30min,45min,60min from the beginning) is described by the color in the following figure. }
+\item{\textbf{the actual traffic flow in defferent time in Non-Peak travel hours.}
+ The quantity of the vehicle density in some time(15min,30min,45min,60min from the beginning) is described by the color in the following figure. }
 \end{itemize}
 \begin{figure}[H]
 	\centerline{\includegraphics[height=2.4cm]{hotmap.png}}
