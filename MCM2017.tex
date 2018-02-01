@@ -218,10 +218,10 @@ The model of Cellular Automata is mainly based the following aspects\\
 \indent In our CA model, vehicles are distributed across the whole road from the beginning of simulation. And we set the difference between every startMilepost and endMilepost as the section. From the given data sheet, we know that the traffic flow is different in different section of the road. So the distribution of vehicles is not uniform.\\
 \indent At the same time, the conclusion is obtained that the length of each section of the road is about 1 to 2 kilometers, and every road has about dozens of sections. So in one section of the road, the distribution has little influence on the whole distribution of vehicles. Therefore, we suppose that in every one section of road, the distribution of the vehicles is uniform. \\
 \indent From the given data sheet, we can get the start and end, The proportion of traffic flow in the peak period accounts for 8\% of the whole and $Q_{i}$ in every section of the road. By calculating, we can get the length of every section $l_{i}$ and the number of vehicles $n_{i}$ at some moment.\\
-\indent We discuss the value of $n_{i}$ in two situation between the perus hour and non-peak time of the vehicle. A
+\indent We discuss the value of $n_{i}$ in two situation between the perus hour and non-peak time of the vehicle. 
 \begin{equation}
 	n_{i}=\begin{cases}
-	&\frac{0.08Q}{3600t_{1}}\cdot\frac{l_{i}}{V_{i}} \indent\indent\indent \indent\quad\text{\,\,in the peak hour }\\ 
+	&\frac{0.08Q}{3600t_{1}}\cdot\frac{l_{i}}{V_{i}} \indent\indent\indent \indent\quad\text{\,\,in the peak time }\\ 
 	&\frac{0.92Q}{3600(24-t_{1})}\cdot\frac{l_{i}}{V_{i}}\indent\indent\indent \quad\text{in the non-peak time } 
 	\end{cases}
 \end{equation}
@@ -286,8 +286,9 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 
 \textbf{Interaction between self-driving and manual-driving vehicles \\}
 
-\subsection{Model of evaluation criteria for the degree of congestion}
-\label{evaluation criterion}
+
+\subsection{Model of evaluation criteria for the degree of congestion}\
+\label{evaluation criteria}
 An evaluation criteria is built to evaluate the degree of congestion.\\ 
 \indent When the speed distribution of all the vehicles on the road is very uniform, or even the speed of each vehicle is almost the same, the vehicles on the whole section of road needn't speed up or speed down. Each vehicle can keep the same fast speed, and because every two vehicles can be regarded as relatively stationary, there will almost be no congestion. Because the speed distribution is very uniform, the deviation between the speed and the average speed of all the vehicles is small.\\
 \indent When there is a congestion on a road, the average velocity of the vehicles must be slow. When there is a congestion only in one part of the road, the velocity in this part must be much lower than the average velocity $ V_{i} $. So the speed distribution must be not uniform. Therefore, the deviation between the speed and the average speed of each vehicle is large.\\  
@@ -303,8 +304,33 @@ Therefore, our evaluation criteria for the degree of congestion includes: $V_{i}
 \indent Monte Carlo method is a stochastic simulation method based on probability and statistical theory. It is a method of using random numbers to solve many computational problems. In order to obtain the approximate solution of the problem, the problem is connected with a certain probability model. \\
 \subsubsection{The Establishment of the Model}
 \indent From the known data, we can get the traffic inflow on each road section of the day. The value of net inflow or net outflows of cars is the difference between the traffic flow of two adjacent road sections for one day.\\
-\indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars at unit time. And the traffic conditions on the road divided into the peak hour and non peak hour. We can get
-
+\indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars at unit time as $\Delta n$. And the traffic conditions on the road divided into the peak hour and non peak hour. We can get
+\begin{equation}
+	\Delta n=\begin{cases}
+	&(Q_{i}-Q_{i-1})\cdot \frac{0.08}{t_{i}\cdot 3600} \indent\indent\indent \indent\quad\text{\,\,in the peak time }\\ 
+	&(Q_{i}-Q_{i-1})\cdot \frac{0.92}{(24-t_{i})\cdot 3600}\indent\indent\indent \quad\text{in the non-peak time } 
+	\end{cases}
+\end{equation}
+\indent Where i means the $i$th road section. \\
+\indent We use the matrix $P_{change}$ to represent the probability distribution of all the road sections inflow and outflow. So the matrix can be expressed as
+\begin{equation}
+	P_{change}=[\Delta n_1, \Delta n_2,\Delta n_3,\cdots, \Delta n_n]
+\end{equation}
+\indent By calculation, we found that $\Delta n$ is a decimal less than 1. We can't use this value directly as the net flow of cars in each simulation step of the cellular automata. Because the number of vehicles added or reduced in each step must be an integer.\\
+\indent So we use the Monte Carlo Method to simulate.\\
+\indent We generate a random vector R\\
+\begin{equation}
+	R_{random}=[r_1, r_2,r_3,\cdots, r_n]
+\end{equation}
+\indent the length of which is the quantity of road sections as $n$. And the range of the random number is 0 to 1.\\
+\indent The situation of vehicles flow is 
+\begin{equation}
+	\Delta n_{i}=\begin{cases}
+	&0 \indent\indent\indent \indent\quad\text{\,\,if \,\, $P_{change}[i] < R_{random}[i]$}\\ 
+	&1 \indent\indent\indent\indent \quad\text{\,\,if \,\, $P_{change}[i] > R_{random}[i]$} 
+	\end{cases}
+\end{equation}
+\indent It means when the value of $P_{change}[i]$ is smaller than the value of $R_{random}[i]$, $\Delta n_{i}$ is assigned to 1. When the value of $P_{change}[i]$ is larger,  $\Delta n_{i}$ is assigned to 0.
 \section{Simulation Result and Data Analysis}
 \subsection{The effects on of the number of lanes}
 \label{lanes}
