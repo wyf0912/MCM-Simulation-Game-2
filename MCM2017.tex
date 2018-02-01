@@ -262,9 +262,14 @@ where $v_2(n)=0$.\\
 The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.
 
 
-\subsection{The model of chagens in the number of cars}
+\subsection{The model of changes in the number of cars}
 \label{changes of cars}
- 
+\subsubsection{Monte Carlo Method}
+\indent Next, we consider the Monte Carlo method to simulate the change in the number the vehicle.\\
+\indent Monte Carlo method is a stochastic simulation method based on probability and statistical theory. It is a method of using random numbers to solve many computational problems. In order to obtain the approximate solution of the problem, the problem is connected with a certain probability model. \\
+\subsubsection{The Establishment of the Model}
+\indent From the known data, we can get the traffic inflow on each road section of the day. The value of net inflow or net outflows of cars is the difference between the traffic flow of two adjacent road sections for one day.\\
+\indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars at unit time. And the traffic conditions on the road divided into the peak hour and non peak hour. We can get
 \section{Simulation Result and Data Analysis}
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5cm]{auto_all(5).eps}}
