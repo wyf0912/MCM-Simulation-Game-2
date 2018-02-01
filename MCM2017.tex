@@ -54,36 +54,24 @@
 \section{Assumptions}
 \noindent
 {\bf (1) } \textbf{example.} example.\\
-
-\section{Symbols}
-\begin{table}[H]
-        \setlength{\abovecaptionskip}{0pt}
-        \setlength{\belowcaptionskip}{0pt}
-				\centering{Table 1:Constants}\\
-        \begin{tabular}{p{2cm}|p{2cm}|p{7.5cm}|p{1.7cm}}
-		\hline
-		\rowcolor[gray]{0.9}\bf{Symbol}	&\bf{uint}      &\bf{Meaning}&\bf{value}	\\
-		\hline
-		${P}''_{v}$		& $hP_{a}$		 & example  &12\\
-
-		\hline
-	\end{tabular}
-\end{table}
-
 \begin{table}[H]
         \setlength{\abovecaptionskip}{0pt}
         \setlength{\belowcaptionskip}{0pt}
         \centering{Table 2:Notation} \\
-        \begin{tabular}{p{1.8cm}|p{2.2cm}|p{9cm}}
+        \begin{tabular}{p{1.8cm}|p{12cm}}
         \hline
-        \rowcolor[gray]{0.9}\bf{Symbol}	&\bf{uint}      &\bf{Meaning}\\
+        \rowcolor[gray]{0.9}\bf{Symbol} &\bf{Meaning}\\
         \hline
-        $C_{i}$	&$ $ &the $i$ th vehicle\\
-        $t_{i}$	&$ $ &the Time Headway between $ C_{i} $ and the front vehicle\\
-        $T$	&$s$ &the average Time Headway in a road\\
-        $F(t_{i})$	&$ $ &the distribution function of $t_{i}$
-\\
-        
+        $C_{i}$	 &the $i$ th vehicle\\
+        $t_{i}$	&the Time Headway between $ C_{i} $ and the front vehicle\\
+        $T$	&the average Time Headway in a road\\
+        $F(t_{i})$ &the distribution function of $t_{i}$\\
+		$S_{i}$	&the variance of the speed of all vehicles in the ith section of the road \\    
+		$V_{i}$	&the average speed of the speed of all vehicles in the section of the road  \\
+		$\alpha_{i}$ &congestion evaluation index \\
+		$n_i$ &the number of vehicles on a section of the road at a certain moment\\
+		$t_i$ &the length of the peak time \\
+		$Q$ &the traffic flow 
         \end{tabular}
         \end{table}
 
@@ -361,7 +349,8 @@ where $r$ is a random variable, and $dv$ is calculated the same as manual-drivin
 \end{equation}
 \indent It means when the value of $P_{change}[i]$ is smaller than the value of $R_{random}[i]$, $\Delta n_{i}$ is assigned to 1. When the value of $P_{change}[i]$ is larger,  $\Delta n_{i}$ is assigned to 0.
 \section{Simulation Result and Data Analysis}
-\subsection{The effects on of the number of lanes}
+\subsection{The effects of lanes}
+\subsubsection{The effects of the number of the lanes}
 \label{lanes}
 We discuss the effects on our model from the number of lanes of roads.\\
 \indent We use $V_{i}, \alpha_{i}$ index to evaluate the degree of congestion. The number of lanes of roads increases 1,2,3 respectively. And a simulation within 60 minutes is implemented.\\
@@ -370,7 +359,14 @@ We discuss the effects on our model from the number of lanes of roads.\\
 	\centerline{\includegraphics[height=5cm]{lanes.eps}}
 	\caption{the influence of adding new lane}	
 \end{figure}
-\indent From the above figure, when the number of lanes of roads increases, $V_{i}$ will remarkably increase, and the value of $\alpha_{i}$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. \\
+\indent From the above figure, when the number of lanes of roads increases, $V_{i}$ will remarkably increase, and the value of $\alpha_{i}$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. 
+\begin{figure}[H]
+	\centerline{\includegraphics[height=7.2cm]{bili.eps}}
+	\caption{the change of average speed with the proportion of self-driving vehicles}	
+\end{figure}
+\indent In the above figure, there is an intersection of the two curves. The intersection can be regarded as a tipping point when we will need to set up accommodation lanes for self-driving cars. We can know that the tipping point is approximately $35\%$.\\\indent When the proportion of self-driving is lower than $35\%$, because the number of the self-driving cars is small, the utilization rate of the road is not high, Therefore, $V_{90}$ is lower than the road without accommodation lanes. \\\indent When the proportion of self-driving is higher than %35\%%, because the self-driving cars will drive on the road smoothly at a fast velocity. The utilization rate of the road is high. Therefore, $V_{90}$ is larger, and the road is more smooth.\\
+\subsubsection{When to set lanes to be dedicated to the self-driving cars}
+\indent For each road, we can get the tipping point where we can set up accommodation lanes to make the road more smooth.\\\indent We took the 90th road for example. We compare the $V_{90}$ when two and no accommodation lanes are set up with different proportion of self-driving cars.\\\indent The horizontal ordinate represents the different proportion of self-driving cars, and the vertical ordinate represents the value of $V_{90}$.\\
 \subsection{The effects of percentage of self-driving in Peak and Non-Peak travel hours}
 The traffic flow is influenced by percentage of self-driving in Peak and Non-Peak travel hours. We discuss the situation in Peak and Non-Peak travel hours. 
 \subsubsection{the effects of Peak and Non-Peak travel hours}
