@@ -304,7 +304,7 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \indent For some section of the road, at some moment $t$, the velocity of every vehicle can be obtained. So we can use $ V_{i} $ as the first index to evaluate the degree of congestion. Therefore, the smaller $V_{i}$ of a road is, the more serious the crowding the road is.
 
 \begin{itemize}
-\item{\textbf{How to evaluate the degree of congestion by $\alpha_{i}$}. And we use the standard deviation of the speed of all the vehicles $S_{i}$ to evaluate the degree of congestion. However, the larger the average velocity is, the larger the absolute value of the deviation is. To represent the degree of the road more objectively, we use relative deviation $\alpha_{i} =\frac{S_{i } }{V_{i}} $ as the congestion evaluation index. The larger $\alpha w_{i}$ is, the more serious the crowding the road is.}
+\item{\textbf{How to evaluate the degree of congestion by $\alpha_{i}$}. And we use the standard deviation of the speed of all the vehicles $S_{i}$ to evaluate the degree of congestion. However, the larger the average velocity is, the larger the absolute value of the deviation is. To represent the degree of the road more objectively, we use relative deviation $\alpha_{i} =\frac{S_{i } }{V_{i}} $ as the congestion evaluation index. The larger $\alpha_{i}$ is, the more serious the crowding the road is.}
 \end{itemize}
 \subsubsection{Comprehensive evaluation by $V_{i}$ and $\alpha_{i}$}
 
@@ -347,25 +347,64 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 \section{Simulation Result and Data Analysis}
 \subsection{The effects on of the number of lanes}
 \label{lanes}
-
-\subsection{The effects of Peak and/or average traffic volume}
-
-\subsection{The effects of percentage of vehicles using self-driving}
-When different proportion of self-driving are set, we use the evaluation criteria $V_{i},\alpha_{i}$ in \ref{evaluation criteria} to evaluate the degree of congestion. \\
-\indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes are obtained respectively.\\
-\indent The figure below shows within the non-peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
+\subsection{The effects of percentage of self-driving in Peak and Non-Peak travel hours}
+The traffic flow is influenced by percentage of self-driving in Peak and Non-Peak travel hours. We discuss the situation in Peak and Non-Peak travel hours. 
+\subsubsection{the effects of Peak and Non-Peak travel hours}
+\begin{itemize}
+\item{\textbf{the actual traffic flow in different time in Peak travel hours.} The quantity of the vehicle density in some time(15min,30min,45min,60min from the beginning) is described by the color in the following figure. }
+\end{itemize}
 \begin{figure}[H]
-	\centerline{\includegraphics[height=5cm]{auto_all(5)-non-peak.eps}}
-	\caption{Single step of the simulation}
+	\centerline{\includegraphics[height=1.2cm]{1.jpg}}
+	\caption{The vehicle density distribution of the road at 15min}	
 \end{figure}
-The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
 \begin{figure}[H]
-	\centerline{\includegraphics[height=5cm]{auto_all(5).eps}}
-	\caption{Single step of the simulation}
+	\centerline{\includegraphics[height=1.2cm]{2.jpg}}
+	\caption{The vehicle density distribution of the road at 30min}	
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=1.2cm]{3.jpg}}
+	\caption{The vehicle density distribution of the road at 45min}	
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=1.2cm]{4.jpg}}
+	\caption{The vehicle density distribution of the road at 60min}	
+\end{figure}
+\indent\indent In Non-Peak travel hours, the color is light, so the actual road is very smooth, and all the vehicles can travel fast. And the density of the road is small, so there is almost no congestion.
+\begin{itemize}
+\item{\textbf{the actual traffic flow in defferent time in Non-Peak travel hours.} The quantity of the vehicle density in some time(15min,30min,45min,60min from the beginning) is described by the color in the following figure. }
+\end{itemize}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=1.2cm]{5.jpg}}
+	\caption{The vehicle density distribution of the road at 15min}	
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=1.2cm]{6.jpg}}
+	\caption{The vehicle density distribution of the road at 30min}	
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=1.2cm]{7.jpg}}
+	\caption{The vehicle density distribution of the road at 45min}	
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[height=1.2cm]{8.jpg}}
+	\caption{The vehicle density distribution of the road at 60min}	
+\end{figure}
+\indent\indent In Peak travel hours, the density of the middle part of the road is so large. Therefore, there must be a congestion in the middle part of the road.
+\subsubsection{the effects of different proportion of self-driving }
+When different proportion of self-driving are set, we use the evaluation criteria $V_{i}, \alpha_{i}$ in \ref{evaluation criteria} to evaluate the degree of congestion. \\
+\indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes are obtained respectively.\\
+\indent The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5.2cm]{auto_all(5).eps}}
+	\caption{The proportion of self-driving cars(peak travel hours)}	
+\end{figure}
+\indent The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5.2cm]{auto_all(5)-non-peak.eps}}
+	\caption{The proportion of self-driving cars(non-peak travel hours)}	
 \end{figure}
 \indent The above figure shows in peak travel hours or non-peak hours, when the proportion of self-driving increases, the $V_{i}$ will increase and the $\alpha_{i}$ will decrease, which indicates the congestion will decrease with the proportion of self-driving increasing.\\
-\indent And when proportion transfers from $50\%$ to $90\%$, the variation is remarkable. When the proportion reach $90\%$, the $V_{i}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
-
+\indent And when proportion transfers from $50\% $ to $90\% $, the variation is remarkable. When the proportion reach $90\%$, the $V_{i}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
 
 \subsection{The effects of cooperating systems}
 
