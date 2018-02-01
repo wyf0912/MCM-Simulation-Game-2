@@ -20,6 +20,7 @@
 \usepackage{amsmath}
 \usepackage{caption}
 \usepackage{subfigure}
+\usepackage{makecell}
 \title{}
 \date{}
 
@@ -66,8 +67,8 @@
 		${P}''_{v}$		& $hP_{a}$		 & example  &12\\
 
 		\hline
-		\end{tabular}
-	\end{table}
+	\end{tabular}
+\end{table}
 
 \begin{table}[H]
         \setlength{\abovecaptionskip}{0pt}
@@ -232,8 +233,33 @@ The model of Cellular Automata is mainly based the following aspects\\
 	\caption{Single step of the simulation}
 \end{figure}
 \section{Model Validation}
+\subsection{The Hydromechanics model in Traffic Flow}	The related search use The Hydromechanics model to describe the process of traffic flow.\\\indent\textbf{Aggregation wave}\\\indent	A traffic flow wave moves from a low density to a high density state. For example, when the front road is very crowded, the front vehicles will speed down, and the rear car will speed down one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\\indent \textbf{Seperation wave}\\\indent	A traffic flow wave moves from a high density to a low density state. For example, when the front road is very smooth, the front vehicles will speed up, and the rear car will speed up one after the other. The process is described as an aggregation wave that passes a signal from one vehicle to another vehicle.\\\indent \textbf{Fluctuation of traffic flow}\\\indent		Because of the existence of Aggregation wave and Seperation wave, some congested or smooth situation in the road will be passed by the wave rather than gather at a certain section of the road.\\\indent \textbf{The speed of wave $W$}\\\indent	The speed of Aggregation wave or Seperation wave.\\
+\subsection{The calculation of $W$}
+\indent The state of the traffic flow is described by the $K,v$.\\\indent Suppose the initial state is $(K_{1}, v_{1})$, which means there are $K_{1}$ vehicles per meter, and the velocity of the vehicles is $v_{1}$. And the state of the next moment is $(K_{2}, v_{2})$. \\\indent The $W$ is calculated by the equation:
+\begin{equation}
+	W=\frac{K_{1}v_{1}-K_{2}v_{2}}{K_{1}-K_{2}}
+\end{equation}
+\subsection{The discussion about the wave}When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a high density state. So the wave is an aggregation wave. And if $ Q_{2}>Q_{1} $, the $W$ is a positive value, which means the direction of the aggregation wave is the same as that of the traffic flow. If $ Q_{1}<Q_{2} $, the $W$ is a negative value, which means the direction of the aggregation wave is opposite to that of the traffic flow. \\
+\indent And we can discuss the situation when $K_{2}<K_{1}$The table below shows the different situation.\\
+\begin{table}[H]
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{0pt}
+		\centering{Table 1: the direction and class of the wave in different situation}\\
+        \begin{tabular}{p{2.7cm}<{\centering}|p{5.5cm}<{\centering}|p{5.5cm}<{\centering}|}
+		\hline
+		\rowcolor[gray]{0.9}\bf{}	&\bf{$K_{1}<K_{2}$}&\bf{$K_{1}>K_{2}$}	\\
+		\hline
+		$ Q_{1}<Q_{2} $	 & \makecell[{}{p{5.5cm}}]{\textbf{Direction}: Opposite to that of traffic flow;\\  \textbf{Class}: Aggregation wave  } &\makecell[{}{p{5.5cm}}]{\textbf{Direction}:The same as that of traffic flow;\\ \textbf{Class}: Seperation wave}\\
+		\hline
+		$Q_{1}>Q_{2} $  & \makecell[{}{p{5.5cm}}]{\textbf{Direction}: The same as that of traffic flow;\\  \textbf{Class}: Aggregation wave  }  
+		&\makecell[{}{p{5.5cm}}]{\textbf{Direction}:Opposite to that of traffic flow;\\ \textbf{Class}: Seperation wave}
+	\end{tabular}
+\end{table}
 
-\section{Sensitivity Analysis}
+
+
+
+\indent \section{Sensitivity Analysis}
 
 \section{Strengths and Weaknesses}
 
