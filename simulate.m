@@ -8,18 +8,33 @@ auto_ratio=0.0;
 init_var(lanecar,auto_ratio)
 step(3600)
 draw_summary()
-auto_ratio=0.1;
+lanecar=totalcar./(LanesIN+LanesDE+1).*(endKm-startKm)*0.08/3600/60*3600;
+auto_ratio=0.0;
 init_var(lanecar,auto_ratio)
 step(3600)
 draw_summary()
-auto_ratio=0.5;
+lanecar=totalcar./(LanesIN+LanesDE+2).*(endKm-startKm)*0.08/3600/60*3600;
+auto_ratio=0.0;
 init_var(lanecar,auto_ratio)
 step(3600)
 draw_summary()
-auto_ratio=0.9;
+lanecar=totalcar./(LanesIN+LanesDE+3).*(endKm-startKm)*0.08/3600/60*3600;
+auto_ratio=0.0;
 init_var(lanecar,auto_ratio)
 step(3600)
 draw_summary()
+% auto_ratio=0.1;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+% auto_ratio=0.5;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+% auto_ratio=0.9;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
 draw_summary_end()
 end
 
