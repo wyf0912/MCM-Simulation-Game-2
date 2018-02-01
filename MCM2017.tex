@@ -533,9 +533,13 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \end{figure}
 \indent Through the picture, we can find that at different initial speeds, after a period of time, the simulation results are basically the same. And we can find the changing ranges of A and B are both small. (The simulation conditions are Highway 90, 10\% of the self-driving vehicle ratio.)\\
 \indent So we verify the stability of our model to the parameter $v_{initial}$
-\subsection{Change of HT}
-
-\subsection{Change of Peak time}
+\subsection{Change of TH}
+\indent In the previous papaer, we assume that the minimum TH is 4s and the average of TH is 6s. In order to find how the simulation change with HT. We set the parameter to (3,7)s, (4,7)s, (5,7)s and (6,7)s, which means (the shortest TH, the average HT). We get the following figure by simulation.
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5.2cm]{HT.eps}}
+	\caption{The influence of TH}	
+\end{figure}
+\indent We can find that the average speed of the vehicle decreases and the inhomogeneity of velocity decreases with the increase of TH. The result of this simulation is the same as our analysis. Because the increase of TH, the distance between two cars increase, and the distribution is more uniform.
 
 \section{Strengths and Weaknesses}
 \subsection{Strengthes}
