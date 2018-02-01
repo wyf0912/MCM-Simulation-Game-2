@@ -81,9 +81,8 @@
         $C_{i}$	&$ $ &the $i$ th vehicle\\
         $t_{i}$	&$ $ &the Time Headway between $ C_{i} $ and the front vehicle\\
         $T$	&$s$ &the average Time Headway in a road\\
-        $F(t_{i})$	&$ $ &the distribution function of $t_{i}$
-\\
-        
+        $F(t_{i})$	&$ $ &the distribution function of $t_{i}$\\
+        \hline 
         \end{tabular}
         \end{table}
 
@@ -228,7 +227,7 @@ The model of Cellular Automata is mainly based the following aspects\\
 \begin{table}[H]
         \setlength{\abovecaptionskip}{0pt}
         \setlength{\belowcaptionskip}{0pt}
-		\centering{Table 1: the direction and class of the wave in different situation}\\
+		\centering{Table 3: the direction and class of the wave in different situation}\\
         \begin{tabular}{p{2.7cm}<{\centering}|p{5.5cm}<{\centering}|p{5.5cm}<{\centering}|}
 		\hline
 		\rowcolor[gray]{0.9}\bf{}	&\bf{$K_{1}<K_{2}$}&\bf{$K_{1}>K_{2}$}	\\
@@ -236,13 +235,43 @@ The model of Cellular Automata is mainly based the following aspects\\
 		$ Q_{1}<Q_{2} $	 & \makecell[{}{p{5.5cm}}]{\textbf{Direction}: Opposite to that of traffic flow;\\  \textbf{Class}: Aggregation wave  } &\makecell[{}{p{5.5cm}}]{\textbf{Direction}:The same as that of traffic flow;\\ \textbf{Class}: Seperation wave}\\
 		\hline
 		$Q_{1}>Q_{2} $  & \makecell[{}{p{5.5cm}}]{\textbf{Direction}: The same as that of traffic flow;\\  \textbf{Class}: Aggregation wave  }  
-		&\makecell[{}{p{5.5cm}}]{\textbf{Direction}:Opposite to that of traffic flow;\\ \textbf{Class}: Seperation wave}
+		&\makecell[{}{p{5.5cm}}]{\textbf{Direction}:Opposite to that of traffic flow;\\ \textbf{Class}: Seperation wave}\\
+		\hline
 	\end{tabular}
 \end{table}
+\subsection{Use the Hydromechanics model to verify our CA model}
+\indent In our simulation, we get the space distribution of vehicle density $K$ and traffic flow $Q$ in some time(15min, 30min, \ldots ,120min from the beginning).\\
+\indent The depth of the color in the figure represents the quantity of the vehicle density $K$ and traffic flow $Q$. And deeper the color is, larger the vehicle and the traffic flow is. The horizontal axis represents the distance from start of a section of the road.\\
+\indent We pay attention to the congestion part of the section, and tag this part with a red circle.\\\indent In the figure, we can find the $K_{red}$ and $Q_{red}$ is the largest in the road. So $K_{2}$ must be smaller than $K_{1}$, $Q_{2}$ must be smaller than $Q_{1}$. So according to the Table 1, there must be a Seperation wave of which the direction is to the end of the road  and an Aggregation wave of which the direction is to the start of the road.\\
+\indent Therefore, the left part of the tagged part will be more crowded, the right part of the tagged part will be more smooth.\\
+\indent And it means with the time goes, the crowded part(tagged) will shift to the left.\\
+\indent So we observe the change of location of the tagged part.\\
 
-
-
-
+\begin{figure}[H]
+\centering
+\subfigure[Spatial distribution of k,Q at 15 minutes]{
+\begin{minipage}[b]{1\textwidth}
+\includegraphics[width=1\textwidth]{fig15.jpg}
+\end{minipage}
+}
+\subfigure[Spatial distribution of k,Q at 30 minutes]{
+\begin{minipage}[b]{1\textwidth}
+\includegraphics[width=1\textwidth]{fig30.png}
+\end{minipage}
+}
+\subfigure[Spatial distribution of k,Q at 45 minutes]{
+\begin{minipage}[b]{1\textwidth}
+\includegraphics[width=1\textwidth]{fig45.jpg}
+\end{minipage}
+}
+\subfigure[Spatial distribution of k,Q at 60 minutes]{
+\begin{minipage}[b]{1\textwidth}
+\includegraphics[width=1\textwidth]{fig60.jpg}
+\end{minipage}
+}
+ \caption{Spatial distribution of k,Q at different moments} \label{fig:1}
+\end{figure}
+\indent From the above figure, we find that actual change of the location of the tagged part is consistent with the classic Hydromechanics model in traffic flow. \\\indent Therefore, our model and simulation are reliable.
 \indent \section{Sensitivity Analysis}
 
 \section{Strengths and Weaknesses}
