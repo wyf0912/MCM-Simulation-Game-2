@@ -266,11 +266,8 @@ where $v_2(n)=0$.\\
 \end{equation}
 
 \subsubsection{$\Delta V$ of Self-driving car}
-The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.
+The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.\\
 
-\subsection{The model of changes in the number of cars}
-\label{changes of cars}
- 
 \subsection{Model of evaluation criteria for the degree of congestion}
 An evaluation criteria is built to evaluate the degree of congestion.\\ 
 \indent When the speed distribution of all the vehicles on the road is very uniform, or even the speed of each vehicle is almost the same, the vehicles on the whole section of road needn't speed up or speed down. Each vehicle can keep the same fast speed, and because every two vehicles can be regarded as relatively stationary, there will almost be no congestion. Because the speed distribution is very uniform, the deviation between the speed and the average speed of all the vehicles is small.\\
@@ -280,7 +277,15 @@ An evaluation criteria is built to evaluate the degree of congestion.\\
 \indent And we use the standard deviation of the speed of all the vehicles $S_{i}$ to evaluate the degree of congestion. However, the larger the average velocity is, the larger the absolute value of the deviation is. To represent the degree of the road more objectively, we use relative deviation $\alpha_{i} =\frac{S_{i } }{V_{i}} $ as the congestion evaluation index. The larger $\alpha w_{i}$ is, the more serious the crowding the road is.\\
 Therefore, our evaluation criteria for the degree of congestion includes: $V_{i}, \alpha_{i} $. More crowding road must have a smaller $V_{i}$ and a larger $alpha_{i}$.\\
  
- 
+\subsection{The model of changes in the number of cars}
+\label{changes of cars}
+\subsubsection{Monte Carlo Method}
+\indent Next, we consider the Monte Carlo method to simulate the change in the number the vehicle.\\
+\indent Monte Carlo method is a stochastic simulation method based on probability and statistical theory. It is a method of using random numbers to solve many computational problems. In order to obtain the approximate solution of the problem, the problem is connected with a certain probability model. \\
+\subsubsection{The Establishment of the Model}
+\indent From the known data, we can get the traffic inflow on each road section of the day. The value of net inflow or net outflows of cars is the difference between the traffic flow of two adjacent road sections for one day.\\
+\indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars at unit time. And the traffic conditions on the road divided into the peak hour and non peak hour. We can get
+
 \section{Simulation Result and Data Analysis}
 \subsection{The effects on of the number of lanes}
 
