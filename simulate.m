@@ -3,7 +3,7 @@ global startKm endKm totalcar LanesIN LanesDE auto_ratio;
 load('data.mat');
 endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
-lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
+lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.04/3600/60*3600;                                   
 auto_ratio=0.0;
 init_var(lanecar,auto_ratio)
 step(3600)
