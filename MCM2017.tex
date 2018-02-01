@@ -439,9 +439,16 @@ When different proportion of self-driving are set, we use the evaluation criteri
 \indent And when proportion transfers from $50\% $ to $90\% $, the variation is remarkable. When the proportion reach $90\%$, the $V_{i}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
 
 \subsection{The effects of cooperating systems}
-And then we discuss the effect of the cooperating systems of the cellular automaton. The rule of the cooperating system has been established at $4.5$. \\
-\indent We mainly use two indexes of $V_{i}$ and $\alpha_{i}$ to analyze the model.So taking advantage of the rule of our cooperative relationship, we simulate the cellular automaton under the different percentage of the selfing 
-
+And then we discuss the effect of the cooperating systems of the cellular automaton. The rule of the cooperating system has been established earlier. \\
+\indent We mainly use two indexes of $V_{i}$ and $\alpha_{i}$ to analyze the model. So taking advantage of the rule of our cooperative relationship, we simulate the cellular automaton under the different percentage of the self-driving cars for 4 roads in one hour. 
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5.2cm]{cooperate.eps}}
+	\caption{The influence of self-driving car cooperation}	
+\end{figure}
+\indent The numbers from 1 to 4 on the abscissa refer to four different roads. Every road has six data and set the two adjacent data as a group which refers to the situations that the proportion of self-driving is 10\%,50\% to 90\%. In each group, the column on the left indicates no cooperating rules adding, and is opposite to the right.\\
+\indent We can know from the figure that $V_{i}$ has increased and $\alpha_{i}$ has decreased when adding the cooperation rules. And different roads have the similar situations.\\
+\indent And we also can know from the figure that the more dense traffic flow is, the more obvious the raise of the speed is. Because when the traffic flow is dense, it's easy to cause a traffic jam and make the vehicle slow down.\\
+\indent Equally, the overall impact of the $V_{i}$ and $\alpha_{i}$ about the cooperation rules is slightly small as the self-driving vehicle can accurately control the speed of itself.
 \section{Model Validation}
 \subsection{The Hydromechanics model in Traffic Flow}
 The related search use The Hydromechanics model to describe the process of traffic flow.
