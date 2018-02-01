@@ -88,6 +88,8 @@
         \end{table}
 
 \section{Models}
+\subsection{Data preprocessing}
+
 \subsection{Design of Cellular Automata }
 Large quantities of former traffic simulations based on Cellular Automata (CA) indicate that CA model is a feasible and effective method to emulate traffic flow. Space, time and status are all discrete in Cellular Automata. For example, The model abstracts the car into a particle, and time is divided into small units. This feature predigests the simulation process significantly. Besides, the status of a cell is controlled by its neighboring cells following a set of rules, which is much similar to real-life traffic where a car's movement largely depends on its neighboring cars' movements. Therefore, it is rational for us to apply Cellular Automata in solving our problem.
 \\
@@ -204,6 +206,7 @@ The model of Cellular Automata is mainly based the following aspects\\
 \indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. \\
 
 \subsection{The model of calculating $P$ and $D$}
+\subsubsection{Calculation of the initial $P$}
 \indent $P$ is a column vector including the location of all the vehicles (the unit of $P$ is km). With the process of simulation, $P$ is a vector that varies orderly. So we only need to consider how to determine the initial value of $P$.\\
 \indent In our CA model, vehicles are distributed across the whole road from the beginning of simulation. And we set the difference between every startMilepost and endMilepost as the section. From the given data sheet, we know that the traffic flow is different in different section of the road. So the distribution of vehicles is not uniform.\\
 \indent At the same time, the conclusion is obtained that the length of each section of the road is about 1 to 2 kilometers, and every road has about dozens of sections. So in one section of the road, the distribution has little influence on the whole distribution of vehicles. Therefore, we suppose that in every one section of road, the distribution of the vehicles is uniform. \\
@@ -217,9 +220,13 @@ The model of Cellular Automata is mainly based the following aspects\\
 \end{equation}
 \indent While $v_{i}$ means the average speed of cars and $t_{i}$ is the length of the rush hour.\\
 \begin{equation}
-	pi=(i-1)\cdot\frac{l_{n}}{n_{i}}+startmilepost \indent \indent	i=1,2,3,…n
+	p_i=(i-1)\cdot\frac{l_{n}}{n_{i}}+startmilepost \indent \indent	i=1,2,3,…n
 \end{equation}
 \indent The $p_{i}$ refers to the distance between the $i$th car and the starting point of the road.
+
+\subsubsection{Calculation of $D$}
+After we get the position vector $P$ of all vehicles, we can update the vehicle distance vector $D$.
+
 \subsection{The model of calculating $V$}
 \label{velocity change}
 \subsubsection{$\Delta V$ of Manual-driving car}
@@ -261,11 +268,25 @@ where $v_2(n)=0$.\\
 \subsubsection{$\Delta V$ of Self-driving car}
 The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.
 
-
-\subsection{The model of chagens in the number of cars}
+\subsection{The model of changes in the number of cars}
 \label{changes of cars}
  
+\subsection{Model of evaluation criteria for the degree of congestion}
+An evaluation criteria is built to evaluate the degree of congestion.\\ 
+\indent When the speed distribution of all the vehicles on the road is very uniform, or even the speed of each vehicle is almost the same, the vehicles on the whole section of road needn't speed up or speed down. Each vehicle can keep the same fast speed, and because every two vehicles can be regarded as relatively stationary, there will almost be no congestion. Because the speed distribution is very uniform, the deviation between the speed and the average speed of all the vehicles is small.\\
+\indent When there is a congestion on a road, the average velocity of the vehicles must be slow. When there is a congestion only in one part of the road, the velocity in this part must be much lower than the average velocity $ V_{i} $. So the speed distribution must be not uniform. Therefore, the deviation between the speed and the average speed of each vehicle is large.\\  
+\indent The conclusion is obtained that the degree of congestion must be related with the average speed of the speed of all vehicles in the section of the road and the deviation between the speed and average speed of all the vehicles.\\
+\indent For some section of the road, at some moment $t$, the velocity of every vehicle can be obtained. So we can use $ V_{i} $ as the first index to evaluate the degree of congestion. Therefore, the smaller $V_{i}$ of a road is, the more serious the crowding the road is.\\
+\indent And we use the standard deviation of the speed of all the vehicles $S_{i}$ to evaluate the degree of congestion. However, the larger the average velocity is, the larger the absolute value of the deviation is. To represent the degree of the road more objectively, we use relative deviation $\alpha_{i} =\frac{S_{i } }{V_{i}} $ as the congestion evaluation index. The larger $\alpha w_{i}$ is, the more serious the crowding the road is.\\
+Therefore, our evaluation criteria for the degree of congestion includes: $V_{i}, \alpha_{i} $. More crowding road must have a smaller $V_{i}$ and a larger $alpha_{i}$.\\
+ 
+ 
 \section{Simulation Result and Data Analysis}
+\subsection{The effects on of the number of lanes}
+
+\subsection{The effects of Peak and/or average traffic volume}
+
+\subsection{The effects of percentage of vehicles using self-driving}
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5cm]{auto_all(5).eps}}
 	\caption{Single step of the simulation}
@@ -275,6 +296,8 @@ The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basica
 	\centerline{\includegraphics[height=5cm]{auto_all(5)-non-peak.eps}}
 	\caption{Single step of the simulation}
 \end{figure}
+
+\subsection{The effects of cooperating systems}
 
 \section{Model Validation}
 \subsection{The Hydromechanics model in Traffic Flow}
@@ -347,12 +370,14 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \indent Therefore, our model and simulation are reliable.
 
 
+\section{Sensitivity Analysis}
+\subsection{Initial velocity of simulation}
 
+\subsection{Change of HT}
 
-\indent \section{Sensitivity Analysis}
+\subsection{Change of Peak time}
 
 \section{Strengths and Weaknesses}
-
 
 
 \section{References}
