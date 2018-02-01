@@ -201,18 +201,34 @@ The model of Cellular Automata is mainly based the following aspects\\
 \begin{equation}
 	P\{t_{i} \leqslant t_{0} \}=F(t_{0})
 \end{equation}
-\indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. 
+\indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. \\
 
 \subsection{The model of calculating $P$ and $D$}
 
 \subsection{The model of calculating $V$}
 \label{velocity change}
-Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway.
+Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway. The difference between actual and expected Time Headway is
 \begin{equation}
 	\Delta t_{i}=t_{i}-\frac{d_{i}}{v_{i}}
 \end{equation}
-\indent 
-\subsection{The model of changes in the number of cars}
+\indent We first directly put $\Delta t$ as the coefficient of vehicle acceleration. But we find the range of T is very large. So we use tanh function which is widely used in Neural network to normalize it.\\
+\begin{figure}[H]
+	\centerline{\includegraphics[height=5cm]{tanh.eps}}
+	\caption{Normalization of $\Delta t_{i}$ by tanh function}
+\end{figure}
+\indent In the form of vector, we can get the following
+\begin{equation}
+\begin{split}
+	\Delta T=T-D./V\\
+	K_{t}= tanh(\Delta T) 
+\end{split}
+\end{equation}
+\indent And the velocity variation caused by $\Delta T$ is
+\begin{equation}
+	\Delta V=K_{t}.*A
+\end{equation}
+where A is a vector of random $a_{i}$, and $a_{i}$ is the maximum acceleration of the $i_{th}$ vehicle with uniform distribution, $a_{i}\sim U(1.1,2.1)$.
+\subsection{The model of chagens in the number of cars}
 \label{changes of cars}
  
 \section{Simulation Result and Data Analysis}
@@ -258,7 +274,8 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \subsection{Use the Hydromechanics model to verify our CA model}
 \indent In our simulation, we get the space distribution of vehicle density $K$ and traffic flow $Q$ in some time(15min, 30min, 45min, 60min from the beginning).\\
 \indent The depth of the color in the figure represents the quantity of the vehicle density $K$ and traffic flow $Q$. And deeper the color is, larger the vehicle and the traffic flow is. The horizontal axis represents the distance from start of a section of the road.\\
-\indent We pay attention to the congestion part of the section, and tag this part with a red circle.\\\indent In the figure, we can find the $K_{red}$ and $Q_{red}$ is the largest in the road. So $K_{2}$ must be smaller than $K_{1}$, $Q_{2}$ must be smaller than $Q_{1}$. So according to the Table 1, there must be a Seperation wave of which the direction is to the end of the road  and an Aggregation wave of which the direction is to the start of the road.\\
+\indent We pay attention to the congestion part of the section, and tag this part with a red circle.\\
+\indent In the figure, we can find the $K_{red}$ and $Q_{red}$ is the largest in the road. So $K_{2}$ must be smaller than $K_{1}$, $Q_{2}$ must be smaller than $Q_{1}$. So according to the Table 1, there must be a Seperation wave of which the direction is to the end of the road  and an Aggregation wave of which the direction is to the start of the road.\\
 \indent Therefore, the left part of the tagged part will be more crowded, the right part of the tagged part will be more smooth.\\
 \indent And it means with the time goes, the crowded part(tagged) will shift to the left.\\
 \indent So we observe the change of location of the tagged part.\\
@@ -286,7 +303,8 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 }
  \caption{Spatial distribution of k,Q at different moments} \label{fig:1}
 \end{figure}
-\indent From the above figure, we find that actual change of the location of the tagged part is consistent with the classic Hydromechanics model in traffic flow. \\\indent Therefore, our model and simulation are reliable.
+\indent From the above figure, we find that actual change of the location of the tagged part is consistent with the classic Hydromechanics model in traffic flow. \\
+\indent Therefore, our model and simulation are reliable.
 
 
 
