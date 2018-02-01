@@ -151,9 +151,9 @@ The model of Cellular Automata is mainly based the following aspects\\
 \subsection{Time Headway}
 \label{headway}
 \subsubsection{The Set of Time Headway}
-\indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the HT between the two cars needs to be greater than a minimum safety HT. The safety HT is depended on the reaction time of person.\\
-\indent The HT of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the HT of two cars smaller. When the driver of rear is aware that the HT is too small, as the HT of reality is less than the HT he expected, the driver will slow down and increase the HT between two cars.\\
-\indent Then the ratio distribution of the headway of the car needs to be determined. We can know from the previous research\upcite{TH}, when there is a minimum safety HT and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
+\indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the TH between the two cars needs to be greater than a minimum safety TH. The safety TH is depended on the reaction time of person.\\
+\indent The TH of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the TH of two cars smaller. When the driver of rear is aware that the TH is too small, as the TH of reality is less than the TH he expected, the driver will slow down and increase the TH between two cars.\\
+\indent Then the ratio distribution of the headway of the car needs to be determined. We can know from the previous research\upcite{TH}, when there is a minimum safety TH and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
 \indent So the random variable follows the SNED model. It means,
 \begin{equation}
 		F(t)=1-e^{-\frac{t_{i}-\tau }{T-\tau}}
@@ -207,6 +207,7 @@ The model of Cellular Automata is mainly based the following aspects\\
 
 \subsection{The model of calculating $V$}
 \label{velocity change}
+\subsubsection{$\Delta V$ of Manual-driving car}
 Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway. The difference between actual and expected Time Headway is
 \begin{equation}
 	\Delta t_{i}=t_{i}-\frac{d_{i}}{v_{i}}
@@ -223,11 +224,29 @@ Because people want to keep their time headway as stable as possible, the first 
 	K_{t}= tanh(\Delta T) 
 \end{split}
 \end{equation}
-\indent And the velocity variation caused by $\Delta T$ is
+where $t_n=0$.\\
+\indent And the velocity variation $\Delta V_{1}$ caused by $\Delta T$ is
 \begin{equation}
-	\Delta V=K_{t}.*A
+	\Delta V_{1}=K_{t}.*A
 \end{equation}
-where A is a vector of random $a_{i}$, and $a_{i}$ is the maximum acceleration of the $i_{th}$ vehicle with uniform distribution, $a_{i}\sim U(1.1,2.1)$.
+\indent where A is a vector of random $a_{i}$, and $a_{i}$ is the maximum acceleration of the $i_{th}$ vehicle with uniform distribution. The unit of $a_{i}$ is $m/s^{2}$ and $a_{i}\sim U(1.1,2.1)$.\\
+\indent When the speed of the rear car is higher than that of the front car, the acceleration of the rear car will be reduced to prevent pileup. The velocity variation $\Delta V_{2}$ caused by reducing acceleration in advance.
+\begin{equation}
+\begin{split}
+	\Delta v_{2}(i)=k(v(i)-v(i+1))\\
+	\Delta V_{2}=k(V-[V(2:n);0])
+\end{split}
+\end{equation}
+where $v_2(n)=0$.\\
+\\Through the experiment, we set $k$ to 0.15. And the amount of change in the speed of a single simulation step is
+\begin{equation}
+\Delta V=\Delta V_1-\Delta V_2
+\end{equation}
+
+\subsubsection{$\Delta V$ of Self-driving car}
+The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.
+
+
 \subsection{The model of chagens in the number of cars}
 \label{changes of cars}
  
