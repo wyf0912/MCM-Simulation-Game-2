@@ -30,13 +30,18 @@
 
 
 \title{Keep the Bathtub Warm}
-
+Based on Cellular Automata and Monte-Carlo method, we build a model to analysis the effects of self-driving cars on traffic flow.\\
+\indent First we break down the process of variance of traffic flow and establish SNED model for Time Headway, the model of P, D, V model to discrete the movement of traffic flow, the model of vehicles quantity change for the stability of quantity and the model of evaluation criteria to measure the degree of congestion.\\
+\indent Then we design rules to simulate different number of lanes and explore the effect it makes. Next we take the proportion of self-driving cars as the independent variable, we get the variance of the average speed of traffic flow when set up and do not set up special lanes, and then we get the tipping point (the percentage of self-driving car is 35\% ) to set up special lanes. We categorize the collaboration of self-driving car with other vehicles and the influence become greater as the density increases.\\
+\indent Then we use the classic Hydromechanics model in traffic flow to validate our CA model. Our simulation results and the validate model corroborate each other. Next, we changed the initial speed of simulation parameters and the Time Headway. Through the simulation, we find that the initial velocity has less effect on the model after a period of time and the Time Headway has a great influence on the simulation results.\\
+\indent Finally we analysis the strengths and weaknesses of our model and write a letter to the Governor's office.
+ 
 
 
 \end{abstract}
 
 \begin{keywords}
-	\textbf{A,\indent B, \indent}
+	\textbf{Cellular Automata, Monte-Carlo, Time Headway,  Hydromechanics model}
 \end{keywords}
 \maketitle
 \tableofcontents\thispagestyle{empty}
@@ -48,33 +53,60 @@
 \section{Introduction}
 \subsection{Literature review}
 \indent Traffic flow modeling as the basis of traffic control, traffic design, traffic analysis, traffic simulation and traffic control decision making always is the the research focus in traffic engineering field. And it can be divided into macroscopic and microscopic models from the angle of study, mainly using the theory of fluid mechanics and the theory of car following\upcite{TF1}. Due to their accuracy and practicability, these two models play an important role in the development of traffic flow modeling\upcite{TF2}.\\
-\indent The cellular automata (CA) is a kind of grid dynamical model in which time, space and state are discrete, and the space interaction and time causality are local. It has the ability to simulate the spatio-temporal evolution process of complex systems. The study of single lane traffic flow cellular automaton model began in 1986, the most famous of them is the NS model proposed by Nagel and Schreeckenberg in 1992\upcite{ca1}. However, this model has a great flaw, and has been gradually improved by follow-up scientists. Such as the T2 model\upcite{ca2} put forward by Takayasu and the VDR model\upcite{ca3} put forward by barlovic. Cellular automata is now always used to calculate traffic flow problems.\\
+\indent The cellular automata (CA) is a kind of grid dynamical model in which time, space and state are discrete, and the space interaction and time causality are local. It has the ability to simulate the spatio-temporal evolution process of complex systems. The study of single lane traffic flow cellular automaton model began in 1986, the most famous of them is the NS model proposed by Nagel and Schreeckenberg in 1992\upcite{ca1}. However, this model has a great flaw, and has been gradually improved by follow-up scientists. Such as the T2 model\upcite{ca2} put forward by Takayasu and the VDR model\upcite{ca3} put forward by barlovic. Cellular automata is now always used to calculate traffic flow problems.
 
+\subsection{Restatement of the Problem}
+The drivers experience long delays during peak traffic hours, and self-driving cooperating cars have been proposed as a solution to increase capacity of highways without increasing number of lanes or roads.\\
+\indent We need to build a model to measure the change when proportion of self-driving cars increases from  10\% to 50\% to 90\% . First we should break down the process of variance of traffic flow. Then we should establish the sub model to discrete the movement of traffic flow, measure the degree of congestion and analysis the stability of quantity.\\
+\indent And then we should find ways to simulate the traffic flow. At the same time we need to design different rules to simulate the different number of lanes, categorize the collaboration of self-driving car with other vehicles and discuss the variance of the average speed of traffic flow about the set of special lanes.\\
+\indent Next we should try to validate our model and analysis the sensitivity of the model.\\
+\indent Finally, we should write a letter to the Governor's office.
 
 \section{Assumptions}
 \noindent
-{\bf (1) } \textbf{example.} example.\\
+{\bf (1) } \textbf{No overtaking.} Because we mainly analyze the congestion in the road, overtaking is not supposed to happen in crowded situations.\\
+{\bf (2) } \textbf{Road conditions and roadblocks are not considered.} Because this part is not supported by data, we ignore this part.\\
+{\bf (3) } \textbf{The distribution of vehicle flow at peak and ordinary times is uniform.}\\
+{\bf (4) } \textbf{The number of vehicles in each lane of the road is the same.}
+\section{Symbols and Terminologies}
+\subsection{Symbols}
 \begin{table}[H]
         \setlength{\abovecaptionskip}{0pt}
         \setlength{\belowcaptionskip}{0pt}
-        \centering{Table 2:Notation} \\
+        \centering{Table 1:Notation} \\
         \begin{tabular}{p{1.8cm}|p{12cm}}
         \hline
         \rowcolor[gray]{0.9}\bf{Symbol} &\bf{Meaning}\\
         \hline
         $C_{i}$	 &the $i$ th vehicle\\
         $t_{i}$	&the Time Headway between $ C_{i} $ and the front vehicle\\
-        $T$	&the average Time Headway in a road\\
+        $T$	&the average Time Headway vector in a road\\
         $F(t_{i})$ &the distribution function of $t_{i}$\\
 		$S_{i}$	&the variance of the speed of all vehicles in the ith section of the road \\    
-		$V_{i}$	&the average speed of the speed of all vehicles in the section of the road  \\
+		$V_{i}$	&the average speed of all vehicles in the section of the road  \\
 		$\alpha_{i}$ &congestion evaluation index \\
 		$n_i$ &the number of vehicles on a section of the road at a certain moment\\
-		$t_i$ &the length of the peak time \\
-		$Q$ &the traffic flow 
+		$t_{pi}$ &the length of the peak time \\
+		$Q$ &the traffic flow vector\\
+		$P$ &the position vector of all cars\\
+		$D$ &the distance vector between adjacent cars\\
+		$V$ &the speed vector of all cars\\
+		$T$ &the Time Headway vector of all cars\\
+		$K$ &the type vector of all cars
         \end{tabular}
         \end{table}
-
+\subsection{Terminologies}
+The symbol of matrix operation is basically referenced to MATLAB.
+\textbf{.*} means multiplying the corresponding positions in two matrices or vectors. For example 
+\begin{equation}
+	A.*B=[a_1*b_1,a_2*b_2...,a_n*b_n]
+\end{equation}
+where A and B are vectors.\\
+\indent Similarly, ./ means the division of the corresponding position of the elements. And $A(j:k)$ means the slicing operation of a vector or matrix. For example
+\begin{equation}
+A(i:j)=[a_i,a_i+1...,a_j]
+\end{equation}
+\
 \section{Models}
 \subsection{Data preprocessing}
 Data preprocessing is mainly to extract the data from the Excel and calculate the traffic flow of a single lane. And the daily traffic flow in each lane is\\
@@ -82,7 +114,7 @@ Data preprocessing is mainly to extract the data from the Excel and calculate th
 N=Counts/(Decr+Incr)
 \end{equation}
 
-where $Counts$ is Average daily traffic counts Year\_2015, $Decr$ is the Number of Lanes DECR MP direction and $Incr$ is the Number of Lanes Incr MP direction. And the influence of the number of lanes will be discussed in \ref{lanes}.\\
+where $N$ is average daily traffic counts on each lane. $Counts$ is average daily traffic counts year\_2015, $Decr$ is the Number of Lanes DECR MP direction and $Incr$ is the Number of Lanes Incr MP direction. And the influence of the number of lanes will be discussed in \ref{lanes}.\\
 
 
 \subsection{Design of Cellular Automata }
@@ -155,20 +187,16 @@ The model of Cellular Automata is mainly based the following aspects\\
 \begin{equation}
 		F(t)=1-e^{-\frac{t_{i}-\tau }{T-\tau}}
 \end{equation}
-\indent Where, \\
-\indent $T$ is the average Time Headway in a road.\\ 
-\indent In traffic flow theory, traffic flow density.\\
+\indent where $T$ is the average Time Headway in a road.\\ 
+
+\indent In traffic flow theory, traffic flow density\\
 \begin{equation}
 \begin{split}
  K &= \frac{Q}{V}\\
  D_{a}&=\frac{1}{K}=\frac{V}{Q}
 \end{split}
 \end{equation}
-\indent Where, \\
-\indent $K$ is the traffic flow density;\\ 
-\indent $Q$ is the traffic flow;\\
-\indent $V$ is the average velocity of vehicles;\\
-\indent $D_{a}$ is the average distance of vehicles.\\
+\indent where $K$ is the traffic flow density, $Q$ is the traffic flow, $V$ is the average velocity of vehicles and $D_{a}$ is the average distance of vehicles.\\
 \indent Because the average Time Headway is the ratio of the average distance $D_{a}$ to the average velocity $V $,\\
 \begin{equation}
 	T=\frac{D_{a}}{V}=\frac{1}{Q}
@@ -199,6 +227,8 @@ The model of Cellular Automata is mainly based the following aspects\\
 	P\{t_{i} \leqslant t_{0} \}=F(t_{0})
 \end{equation}
 \indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. \\
+\indent Vector $U$ is input, of which the element follows uniform distribution. And the output vector $T=\tau-(T-\tau)\cdot \ln(1-U)$ follows SNED distribution.
+
 
 \subsection{The model of calculating $P$ and $D$}
 \subsubsection{Calculation of the initial $P$}
@@ -215,8 +245,9 @@ The model of Cellular Automata is mainly based the following aspects\\
 \end{equation}
 \indent While $v_{i}$ means the average speed of cars and $t_{i}$ is the length of the rush hour.\\
 \begin{equation}
-	p_i=(i-1)\cdot\frac{l_{n}}{n_{i}}+startmilepost \indent \indent	i=1,2,3,…n
+	p_i=(i-1)\cdot\frac{l_{n}}{n_{i}}+p_{start} \indent \indent	i=1,2,3,…n
 \end{equation}
+where $p_{start}$ is the start mile post.\\
 \indent The $p_{i}$ refers to the distance between the $i$th car and the starting point of the road.
 
 \subsubsection{Calculation of $D$}
@@ -361,12 +392,16 @@ We discuss the effects on our model from the number of lanes of roads.\\
 \end{figure}
 \indent From the above figure, when the number of lanes of roads increases, $V_{i}$ will remarkably increase, and the value of $\alpha_{i}$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. 
 \subsubsection{When to set lanes to be dedicated to the self-driving cars}
-\indent For each road, we can get the tipping point where we can set up accommodation lanes to make the road more smooth.\\\indent We took the 90th road for example. We compare the $V_{90}$ when two and no accommodation lanes are set up with different proportion of self-driving cars.\\\indent The horizontal ordinate represents the different proportion of self-driving cars, and the vertical ordinate represents the value of $V_{90}$.\\
+\indent For each road, we can get the tipping point where we can set up accommodation lanes to make the road more smooth.\\
+\indent We took the 90th road for example. We compare the $V_{90}$ when two and no accommodation lanes are set up with different proportion of self-driving cars.\\
+\indent The horizontal ordinate represents the different proportion of self-driving cars, and the vertical ordinate represents the value of $V_{90}$.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=7.2cm]{bili.eps}}
 	\caption{the change of average speed with the proportion of self-driving vehicles}	
 \end{figure}
-\indent In the above figure, there is an intersection of the two curves. The intersection can be regarded as a tipping point when we will need to set up accommodation lanes for self-driving cars. We can know that the tipping point is approximately $35\%$.\\\indent When the proportion of self-driving is lower than $35\%$, because the number of the self-driving cars is small, the utilization rate of the road is not high, Therefore, $V_{90}$ is lower than the road without accommodation lanes. \\\indent When the proportion of self-driving is higher than 35\%, because the self-driving cars will drive on the road smoothly at a fast velocity. The utilization rate of the road is high. Therefore, $V_{90}$ is larger, and the road is more smooth.\\
+\indent In the above figure, there is an intersection of the two curves. The intersection can be regarded as a tipping point when we will need to set up accommodation lanes for self-driving cars. We can know that the tipping point is approximately $35\%$.\\
+\indent When the proportion of self-driving is lower than $35\%$, because the number of the self-driving cars is small, the utilization rate of the road is not high, Therefore, $V_{90}$ is lower than the road without accommodation lanes. \\
+\indent When the proportion of self-driving is higher than 35\%, because the self-driving cars will drive on the road smoothly at a fast velocity. The utilization rate of the road is high. Therefore, $V_{90}$ is larger, and the road is more smooth.\\
 \subsection{The effects of percentage of self-driving in Peak and Non-Peak travel hours}
 The traffic flow is influenced by percentage of self-driving in Peak and Non-Peak travel hours. We discuss the situation in Peak and Non-Peak travel hours. 
 \subsubsection{the effects of Peak and Non-Peak travel hours}
@@ -418,7 +453,7 @@ The traffic flow is influenced by percentage of self-driving in Peak and Non-Pea
 	\caption{The vehicle density distribution of the road at 60min}	
 \end{figure}
 \indent\indent In Peak travel hours, the density of the middle part of the road is so large. Therefore, there must be a congestion in the middle part of the road.
-\subsubsection{the effects of different proportion of self-driving }
+\subsubsection{The Effects of Different Proportion of Self-Driving }
 When different proportion of self-driving are set, we use the evaluation criteria $V_{i}, \alpha_{i}$ in \ref{evaluation criteria} to evaluate the degree of congestion. \\
 \indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes are obtained respectively.\\
 \indent The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
@@ -441,7 +476,7 @@ And then we discuss the effect of the cooperating systems of the cellular automa
 	\centerline{\includegraphics[height=5.2cm]{cooperate.eps}}
 	\caption{The influence of self-driving car cooperation}	
 \end{figure}
-\indent The numbers from 1 to 4 on the abscissa refer to four different roads. Every road has six data and set the two adjacent data as a group which refers to the situations that the proportion of self-driving is 10\%,50\% to 90\%. In each group, the column on the left indicates no cooperating rules adding, and is opposite to the right.\\
+\indent The numbers from 1 to 4 on the abscissa refer to four different roads. Every road has six data and set the two adjacent data as a group which refers to the situations that the proportion of self-driving is 10\%, 50\% to 90\%. In each group, the column on the left indicates no cooperating rules adding, and is opposite to the right.\\
 \indent We can know from the figure that $V_{i}$ has increased and $\alpha_{i}$ has decreased when adding the cooperation rules. And different roads have the similar situations.\\
 \indent And we also can know from the figure that the more dense traffic flow is, the more obvious the raise of the speed is. Because when the traffic flow is dense, it's easy to cause a traffic jam and make the vehicle slow down.\\
 \indent Equally, the overall impact of the $V_{i}$ and $\alpha_{i}$ about the cooperation rules is slightly small as the self-driving vehicle can accurately control the speed of itself.
@@ -473,7 +508,7 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \begin{table}[H]
         \setlength{\abovecaptionskip}{0pt}
         \setlength{\belowcaptionskip}{0pt}
-		\centering{Table 1: the direction and class of the wave in different situation}\\
+		\centering{Table 2: the direction and class of the wave in different situation}\\
         \begin{tabular}{p{2.7cm}<{\centering}|p{5.5cm}<{\centering}|p{5.5cm}<{\centering}|}
 		\hline
 		\rowcolor[gray]{0.9}\bf{}	&\bf{$K_{1}<K_{2}$}&\bf{$K_{1}>K_{2}$}	\\
@@ -488,10 +523,6 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \indent In our simulation, we get the space distribution of vehicle density $K$ and traffic flow $Q$ in some time(15min, 30min, 45min, 60min from the beginning).\\
 \indent The depth of the color in the figure represents the quantity of the vehicle density $K$ and traffic flow $Q$. And deeper the color is, larger the vehicle and the traffic flow is. The horizontal axis represents the distance from start of a section of the road.\\
 \indent We pay attention to the congestion part of the section, and tag this part with a red circle.\\
-\indent In the figure, we can find the $K_{red}$ and $Q_{red}$ is the largest in the road. So $K_{2}$ must be smaller than $K_{1}$, $Q_{2}$ must be smaller than $Q_{1}$. So according to the Table 1, there must be a Seperation wave of which the direction is to the end of the road  and an Aggregation wave of which the direction is to the start of the road.\\
-\indent Therefore, the left part of the tagged part will be more crowded, the right part of the tagged part will be more smooth.\\
-\indent And it means with the time goes, the crowded part(tagged) will shift to the left.\\
-\indent So we observe the change of location of the tagged part.\\
 \begin{figure}[H]
 \centering
 \subfigure[Spatial distribution of k,Q at 15 minutes]{
@@ -516,7 +547,9 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 }
  \caption{Spatial distribution of k,Q at different moments} \label{fig:1}
 \end{figure}
-\indent From the above figure, we find that actual change of the location of the tagged part is consistent with the classic Hydromechanics model in traffic flow. \\
+\indent In the figure, we can find the $K_{red}$ and $Q_{red}$ is the largest in the road. So $K_{2}$ must be smaller than $K_{1}$, $Q_{2}$ must be smaller than $Q_{1}$. So according to the Table 1, there must be a Seperation wave of which the direction is to the end of the road  and an Aggregation wave of which the direction is to the start of the road.\\
+\indent Therefore, the left part of the tagged part will be more crowded, the right part of the tagged part will be more smooth.\\
+\indent And it means with the time goes, the crowded part(tagged) will shift to the left. So we observe the change of location of the tagged part. From the above figure, we find that actual change of the location of the tagged part is consistent with the classic Hydromechanics model in traffic flow. \\
 \indent Therefore, our model and simulation are reliable.
 
 
@@ -554,15 +587,17 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \begin{itemize}
 \item{\textbf{Our model consider little about some exceptional case.}Once there are exceptional cases like road closure, fog weather and other unpredictable factors, our model will be influenced remarkably.}
 \end{itemize}
+\newpage
 \section{A letter to the Governor's office}
 As the population grows and the number of private cars has increasingly becoming large, the drives will experience long delays when there is congestion in the road. However, it costs a lot to build a new road, and the fundamental problem still can not be solved.\\
 \indent With the progress of science and technology, the technology of self-driving has become more and more mature. We can consider increasing the proportion of self-driving to reduce road congestion.
-In our paper, our model discuss the influence on the traffic flow from different proportion of self-driving in peak travel hours and non-peak travel hours. Because the self-driving is controlled by sensors and computers, they will spend little time to make a corresponding reaction. Therefore, the Time Headway between two self-drivings can be very short, and the distance between them can be close.\\ \indent In our model, we can find the larger the proportion of the self-driving is, the more smooth the road is, and the less congestion there is. \\
+In our paper, our model discuss the influence on the traffic flow from different proportion of self-driving in peak travel hours and non-peak travel hours. Because the self-driving is controlled by sensors and computers, they will spend little time to make a corresponding reaction. Therefore, the Time Headway between two self-drivings can be very short, and the distance between them can be close.\\ \
+\indent In our paper, our model discusses the effects on the number of lanes. The conclusion is obtained that when the proportion of the self-driving is greater than 35\%, it is a good idea to set up two lanes in the road to make the road more smooth. Then we discuss the influence on the traffic flow from different proportion of self-driving in peak travel hours and non-peak travel hours. Because the self-driving is controlled by sensors and computers, they will spend little time to make a corresponding reaction. Therefore, the Time Headway between two self-driving cars can be very short, and the distance between them can be close. In our model, we can find the larger the proportion of the self-driving is, the more smooth the road is, and the less congestion there is. \\
 \indent At the same time, the self-driving vehicles can arrive at the destination automatically. The driver will not be banned from drinking, sleeping when the vehicles travel on the road.
 We make some suggestion for some policy changes:\\
 \indent 1.Give allowance or impose less taxes when citizens purchase self-driving.\\
 \indent 2.More road toll is paid when the manual-driving passes the toll-gate.\\
-\indent 3.According to the proportion of self-driving, use a few lanes as a special driveway for self-driving vehicles.\\
+\indent 3.When the proportion of self-driving is greater than 35\%, use a few lanes as a special driveway for self-driving vehicles.\\
 \indent Therefore, use a large proportion of self-driving can reduce the congestion effectively. If our suggestion is adopted, the transportation in Washington will be very smooth, and citizens will experience a comfortable and time-saving travel. 
 
 
