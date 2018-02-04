@@ -3,15 +3,32 @@ global startKm endKm totalcar LanesIN LanesDE auto_ratio;
 load('data.mat');
 endKm=endMilepost*1.609;
 startKm=startMilepost*1.609;
+
+
 lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;                                   
-%auto_ratio=0.0;
-%init_var(lanecar,auto_ratio)
-%step(3600)
-%draw_summary()
-% lanecar=totalcar./(LanesIN+LanesDE+1).*(endKm-startKm)*0.08/3600/60*3600;
-% auto_ratio=0.0;
-% init_var(lanecar,auto_ratio)
-% step(3600)
+auto_ratio=0.10;
+global t1 t2;
+t1=3;t2=7;
+init_var(lanecar,auto_ratio,50)
+step(3600)
+draw_summary()
+t1=4;t2=7;
+init_var(lanecar,auto_ratio,50)
+step(3600)
+draw_summary()
+t1=5;t2=7;
+init_var(lanecar,auto_ratio,50)
+step(3600)
+draw_summary()
+t1=5;t2=7;
+init_var(lanecar,auto_ratio,50)
+step(3600)
+draw_summary()
+draw_summary_end()
+%   lanecar=totalcar./(LanesIN+LanesDE+1).*(endKm-startKm)*0.08/3600/60*3600;
+%   auto_ratio=0.0;
+%   init_var(lanecar,auto_ratio)
+%   step(3600)
 % draw_summary()
 % lanecar=totalcar./(LanesIN+LanesDE+2).*(endKm-startKm)*0.08/3600/60*3600;
 % auto_ratio=0.0;
@@ -23,25 +40,61 @@ lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600;
 % init_var(lanecar,auto_ratio)
 % step(3600)
 % draw_summary()
-auto_ratio=0.1;
-init_var(lanecar,auto_ratio)
-step(3600)
-draw_summary()
-auto_ratio=0.5;
-init_var(lanecar,auto_ratio)
-step(3600)
-draw_summary()
-auto_ratio=0.9;
-init_var(lanecar,auto_ratio)
-step(3600)
-draw_summary()
-draw_summary_end()
+% auto_ratio=0.1;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+% auto_ratio=0.5;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+% auto_ratio=0.9;
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% draw_summary()
+% draw_summary_end()
+
+
+%无人车比例的影响
+% speed_aver=[];
+% speed_aver2=[];
+% for auto_ratio=0.1:0.05:0.9
+%     speed_aver=[speed_aver,special_lane(2)];
+% end
+% plot(speed_aver)
+% hold on
+% 
+% lanecar=totalcar./(LanesIN+LanesDE).*(endKm-startKm)*0.08/3600/60*3600; 
+% for auto_ratio=0.1:0.05:0.9
+% init_var(lanecar,auto_ratio)
+% step(3600)
+% speed_aver2=[speed_aver2,mean(speed)];
+% end
+% plot(speed_aver2)
+% saveas(gcf,sprintf('figure.fig'));
 end
 
-function init_var(lanecar,auto_ratio)
+
+function average_v=special_lane(num)
+global auto_ratio speed LanesIN LanesDE totalcar endKm startKm
+if num~=0
+    lanecar=totalcar*auto_ratio./(num).*(endKm-startKm)*0.08/3600/60*3600;  
+    init_var(lanecar,1)
+    step(3600)
+    speed1=speed;
+end
+lanecar=totalcar*(1-auto_ratio)./(LanesIN+LanesDE-num).*(endKm-startKm)*0.08/3600/60*3600;  
+init_var(lanecar,0)
+step(3600)
+speed2=speed;
+average_v=auto_ratio*mean(speed1)+(1-auto_ratio)*mean(speed2);
+end
+
+%初始化变量
+function init_var(lanecar,auto_ratio,speed_)
 global car_list startKm endKm;
 pos=cal_pos(lanecar,startKm,endKm,90);
-speed=ones(1,length(pos))*50;
+speed=ones(1,length(pos))*speed_;
 type=ones(1,length(pos)).*(rand(1,length(pos))>auto_ratio); 
 headway=cal_headway(length(pos));
 headway=headway.*type;
@@ -54,8 +107,10 @@ end
 
 
 function headway=cal_headway(len)
+global t1 t2
 syms t;
-t=@(t)4-(6-4)*log(1-t);
+%t=@(t)4-(6-4)*log(1-t);
+t=@(t)t1-(t2-t1)*log(1-t);
 u=rand(1,len)*(1-exp(-2));
 headway=t(u)*(1-exp(-2));
 end
