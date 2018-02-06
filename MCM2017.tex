@@ -21,7 +21,7 @@
 \usepackage{caption}
 \usepackage{subfigure}
 \usepackage{makecell}
-\title{}
+\title{The Effect of Self-Driving car on Traffic Flow}
 \date{}
 
 \begin{document}
@@ -30,11 +30,11 @@
 
 
 \title{Keep the Bathtub Warm}
-Based on Cellular Automata and Monte-Carlo method, we build a model to analysis the effects of self-driving cars on traffic flow.\\
-\indent First we break down the process of variance of traffic flow and establish SNED model for Time Headway, the model of P, D, V model to discrete the movement of traffic flow, the model of vehicles quantity change for the stability of quantity and the model of evaluation criteria to measure the degree of congestion.\\
-\indent Then we design rules to simulate different number of lanes and explore the effect it makes. Next we take the proportion of self-driving cars as the independent variable, we get the variance of the average speed of traffic flow when set up and do not set up special lanes, and then we get the tipping point (the percentage of self-driving car is 35\% ) to set up special lanes. We categorize the collaboration of self-driving car with other vehicles and the influence become greater as the density increases.\\
-\indent Then we use the classic Hydromechanics model in traffic flow to validate our CA model. Our simulation results and the validate model corroborate each other. Next, we changed the initial speed of simulation parameters and the Time Headway. Through the simulation, we find that the initial velocity has less effect on the model after a period of time and the Time Headway has a great influence on the simulation results.\\
-\indent Finally we analysis the strengths and weaknesses of our model and write a letter to the Governor's office.
+Based on Cellular Automata and Monte-Carlo method, we develop a model to analyze the effects of self-driving cars on traffic flow.\\
+\indent Firstly, we break down the process of variance of traffic flow, and establish SNED model for Time Headway, the model of P, D, V model for discretizing the movement of traffic flow, the model of vehicles efflux and inflow for the stability of quantity and the model of evaluation criteria to measure the degree of congestion.\\
+\indent Secondly, we design rules to simulate the different number of lanes and explore the effects it makes. Next we take the proportion of self-driving cars as the independent variable, we get the  average speed of traffic flow when set up and do not set up special lanes, and then we get the tipping point (the percentage of self-driving car is 35\% ) to set up special lanes. We categorize the collaboration with different cars. As the simulation result shows, the influence becomes greater as the density increases.\\
+\indent Then we use the classic Hydromechanics model in traffic flow to validate our CA model. Our simulation results and the validation model corroborate each other. Next, we change the parameters including initial speed of simulation and the Time Headway. Through the simulation, it is found that the initial velocity has less effect on the model after a period of time and the Time Headway has a great influence on the simulation results.  \\
+\indent Finally we analyze the strengths and weaknesses of our model and write a letter to the Governor's office.
  
 
 
@@ -52,9 +52,13 @@ Based on Cellular Automata and Monte-Carlo method, we build a model to analysis 
 %Section 1
 \section{Introduction}
 \subsection{Literature review}
-\indent Traffic flow modeling as the basis of traffic control, traffic design, traffic analysis, traffic simulation and traffic control decision making always is the the research focus in traffic engineering field. And it can be divided into macroscopic and microscopic models from the angle of study, mainly using the theory of fluid mechanics and the theory of car following\upcite{TF1}. Due to their accuracy and practicability, these two models play an important role in the development of traffic flow modeling\upcite{TF2}.\\
-\indent The cellular automata (CA) is a kind of grid dynamical model in which time, space and state are discrete, and the space interaction and time causality are local. It has the ability to simulate the spatio-temporal evolution process of complex systems. The study of single lane traffic flow cellular automaton model began in 1986, the most famous of them is the NS model proposed by Nagel and Schreeckenberg in 1992\upcite{ca1}. However, this model has a great flaw, and has been gradually improved by follow-up scientists. Such as the T2 model\upcite{ca2} put forward by Takayasu and the VDR model\upcite{ca3} put forward by barlovic. Cellular automata is now always used to calculate traffic flow problems.
+\indent Traffic flow modeling which is the basis of traffic control, traffic design, traffic analysis, traffic simulation and traffic control decision making is always the research focus of traffic engineering field. And it can be divided into macroscopic and microscopic models from the angle of study, mainly using the theory of fluid mechanics and the theory of car following\upcite{TF1}. Due to their accuracy and practicability, these two models play important roles in the development of traffic flow model\upcite{TF2}.\\
+\indent The Cellular Automata (CA) is a kind of grid dynamical model in which time, space and state are discrete, and the space interaction and time causality are local. It has the ability to simulate the spatio-temporal evolution process of complex systems. The study of single lane traffic flow cellular automaton model began in 1986, the most famous of them is the NS model proposed by Nagel and Schreeckenberg in 1992\upcite{ca1}. However, this model has a great flaw, and has been gradually improved by follow-up scientists. Such as the T2 model\upcite{ca2} put forward by Takayasu and the VDR model\upcite{ca3} put forward by barlovic. Cellular automata is now always used to calculate traffic flow problems.\\
+\indent %添加模型的不同
 
+
+
+%Our work
 \subsection{Restatement of the Problem}
 The drivers experience long delays during peak traffic hours, and self-driving cooperating cars have been proposed as a solution to increase capacity of highways without increasing number of lanes or roads.\\
 \indent We need to build a model to measure the change when proportion of self-driving cars increases from  10\% to 50\% to 90\% . First we should break down the process of variance of traffic flow. Then we should establish the sub model to discrete the movement of traffic flow, measure the degree of congestion and analysis the stability of quantity.\\
@@ -62,7 +66,7 @@ The drivers experience long delays during peak traffic hours, and self-driving c
 \indent Next we should try to validate our model and analysis the sensitivity of the model.\\
 \indent Finally, we should write a letter to the Governor's office.
 
-\section{Assumptions}
+\section{Assumptions}%解释多一些，以及假设的合理性和原因 
 \noindent
 {\bf (1) } \textbf{No overtaking.} Because we mainly analyze the congestion in the road, overtaking is not supposed to happen in crowded situations.\\
 {\bf (2) } \textbf{Road conditions and roadblocks are not considered.} Because this part is not supported by data, we ignore this part.\\
@@ -113,9 +117,7 @@ Data preprocessing is mainly to extract the data from the Excel and calculate th
 \begin{equation}
 N=Counts/(Decr+Incr)
 \end{equation}
-
-where $N$ is average daily traffic counts on each lane. $Counts$ is average daily traffic counts year\_2015, $Decr$ is the Number of Lanes DECR MP direction and $Incr$ is the Number of Lanes Incr MP direction. And the influence of the number of lanes will be discussed in \ref{lanes}.\\
-
+where $N$ is average daily traffic counts on each lane. $Counts$ is average daily traffic counts, $Decr$ is the number of Lanes DECR MP direction and $Incr$ is the number of Lanes Incr MP direction. And the influence of the number of lanes will be discussed in \ref{lanes}.\\
 
 \subsection{Design of Cellular Automata }
 Large quantities of former traffic simulations based on Cellular Automata (CA) indicate that CA model is a feasible and effective method to emulate traffic flow. Space, time and status are all discrete in Cellular Automata. \\
@@ -153,7 +155,7 @@ V=\left [ v_{1},v_{2},...,v_{n-1},v_{n} \right ]^{T}
 \begin{equation}
 D=[P^{T}(2:n)-P^{T}(1:n-1),0]^{T}
 \end{equation}
-$V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which obeys normal distribution.  $T$ is the headway of all drivers or self-driving systems. And $K$ is all vehicles' types. The meaning and value of the headway will be given in \ref{headway}. There are two kinds of values in $k_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
+\indent $V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which obeys normal distribution.  $T$ is the headway of all drivers or self-driving systems. And $K$ is all vehicles' types. The meaning and value of the headway will be given in \ref{headway}. There are two kinds of values in $k_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
 
 \subsubsection{The Integral Structure of Cellular Automata}
 The model of Cellular Automata is mainly based the following aspects\\
