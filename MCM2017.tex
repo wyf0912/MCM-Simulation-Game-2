@@ -1,4 +1,4 @@
-\documentclass{mcmthesis}
+\documentclass[UTF8]{mcmthesis}
 \mcmsetup{CTeX = false,   % 使用 CTeX 套装时，设置为 true
         tcn = 55869, problem =  C,
         sheet = true, titleinsheet = true, keywordsinsheet = true,
@@ -28,17 +28,14 @@
 
 \begin{abstract}%摘要
 
-
-\title{Keep the Bathtub Warm}
 Based on Cellular Automata and Monte-Carlo method, we develop a model to analyze the effects of self-driving cars on traffic flow.\\
 \indent Firstly, we break down the process of variance of traffic flow, and establish SNED model for Time Headway, the model of P, D, V model for discretizing the movement of traffic flow, the model of vehicles efflux and inflow for the stability of quantity and the model of evaluation criteria to measure the degree of congestion.\\
 \indent Secondly, we design rules to simulate the different number of lanes and explore the effects it makes. Next we take the proportion of self-driving cars as the independent variable, we get the  average speed of traffic flow when set up and do not set up special lanes, and then we get the tipping point (the percentage of self-driving car is 35\% ) to set up special lanes. We categorize the collaboration with different cars. As the simulation result shows, the influence becomes greater as the density increases.\\
 \indent Then we use the classic Hydromechanics model in traffic flow to validate our CA model. Our simulation results and the validation model corroborate each other. Next, we change the parameters including initial speed of simulation and the Time Headway. Through the simulation, it is found that the initial velocity has less effect on the model after a period of time and the Time Headway has a great influence on the simulation results.  \\
 \indent Finally we analyze the strengths and weaknesses of our model and write a letter to the Governor's office.
- 
-
 
 \end{abstract}
+
 
 \begin{keywords}
 	\textbf{Cellular Automata, Monte-Carlo, Time Headway,  Hydromechanics model}
@@ -61,9 +58,9 @@ Based on Cellular Automata and Monte-Carlo method, we develop a model to analyze
 %Our work
 \subsection{Restatement of the Problem}
 The drivers experience long delays during peak traffic hours, and self-driving cooperating cars have been proposed as a solution to increase capacity of highways without increasing number of lanes or roads.\\
-\indent We need to build a model to measure the change when proportion of self-driving cars increases from  10\% to 50\% to 90\% . First we should break down the process of variance of traffic flow. Then we should establish the sub model to discrete the movement of traffic flow, measure the degree of congestion and analysis the stability of quantity.\\
+\indent We need to build a model to measure the change when proportion of self-driving cars increases from  10\% to 50\% to 90\% . First we should break down the process of variance of traffic flow. Then we should establish the sub model to discrete the movement of traffic flow, measure the degree of congestion and analyze the stability of quantity.\\
 \indent And then we should find ways to simulate the traffic flow. At the same time we need to design different rules to simulate the different number of lanes, categorize the collaboration of self-driving car with other vehicles and discuss the variance of the average speed of traffic flow about the set of special lanes.\\
-\indent Next we should try to validate our model and analysis the sensitivity of the model.\\
+\indent Next we should try to validate our model and analyze the sensitivity of the model.\\
 \indent Finally, we should write a letter to the Governor's office.
 
 \section{Assumptions}%解释多一些，以及假设的合理性和原因 
@@ -184,12 +181,12 @@ The model of Cellular Automata is mainly based the following aspects\\
 \subsubsection{The Set of Time Headway}
 \indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the TH between the two cars needs to be greater than a minimum safety TH. The safety TH is depended on the reaction time of person.\\
 \indent The TH of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the TH of two cars smaller. When the driver of rear is aware that the TH is too small, as the TH of reality is less than the TH he expected, the driver will slow down and increase the TH between two cars.\\
-\indent Then the ratio distribution of the headway of the car needs to be determined. We can know from the previous research\upcite{TH}, when there is a minimum safety TH and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
-\indent So the random variable follows the SNED model. It means,
+\indent Then the ratio distribution of the headway of the car needs to be determined. It is known from the previous research\upcite{TH}, when there is a minimum safety TH and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
+\indent So the random variable follows the SNED model. It indicates,
 \begin{equation}
 		F(t)=1-e^{-\frac{t_{i}-\tau }{T-\tau}}
 \end{equation}
-\indent where $T$ is the average Time Headway in a road.\\ 
+where $T$ is the average Time Headway in a road.\\ 
 
 \indent In traffic flow theory, traffic flow density\\
 \begin{equation}
@@ -198,12 +195,12 @@ The model of Cellular Automata is mainly based the following aspects\\
  D_{a}&=\frac{1}{K}=\frac{V}{Q}
 \end{split}
 \end{equation}
-\indent where $K$ is the traffic flow density, $Q$ is the traffic flow, $V$ is the average velocity of vehicles and $D_{a}$ is the average distance of vehicles.\\
+where $K$ is the traffic flow density, $Q$ is the traffic flow, $V$ is the average velocity of vehicles and $D_{a}$ is the average distance of vehicles.\\
 \indent Because the average Time Headway is the ratio of the average distance $D_{a}$ to the average velocity $V $,\\
 \begin{equation}
 	T=\frac{D_{a}}{V}=\frac{1}{Q}
 \end{equation}
-\indent It means the average distance is the reciprocal of the traffic flow.
+\indent It indicates the average distance is the reciprocal of the traffic flow.
 \subsubsection{The generation of Time Headway following SNED model}
 \indent When the parameters $T, \tau $ in $F(t)$ are obtained, we need to produce a large number of data that follows the SNED.\\
 \indent MATLAB can only produce a group of data following the uniform distribution. To produce a group of data following $ F(t_{i})=1-e^{-\frac{t_{i}-\tau}{T-\tau}},t_{i}>\tau $, we consider a random variable, 
@@ -228,7 +225,7 @@ The model of Cellular Automata is mainly based the following aspects\\
 \begin{equation}
 	P\{t_{i} \leqslant t_{0} \}=F(t_{0})
 \end{equation}
-\indent It means $t$ follows the SNED $F(t_{0})$.Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. \\
+\indent It indicates $t$ follows the SNED $F(t_{0})$. Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. \\
 \indent Vector $U$ is input, of which the element follows uniform distribution. And the output vector $T=\tau-(T-\tau)\cdot \ln(1-U)$ follows SNED distribution.
 
 
@@ -570,7 +567,7 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 	\centerline{\includegraphics[height=5.2cm]{HT.eps}}
 	\caption{The influence of TH}	
 \end{figure}
-\indent We can find that the average speed of the vehicle decreases and the inhomogeneity of velocity decreases with the increase of TH. The result of this simulation is the same as our analysis. Because the increase of TH, the distance between two cars increase, and the distribution is more uniform.
+\indent We can find that the average speed of the vehicle decreases and the inhomogeneity of velocity decreases with the increase of TH. The result of this simulation is the same as our analyze. Because the increase of TH, the distance between two cars increase, and the distribution is more uniform.
 
 \section{Strengths and Weaknesses}
 \subsection{Strengthes}
