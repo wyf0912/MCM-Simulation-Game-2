@@ -81,11 +81,11 @@ The drivers experience long delays during peak traffic hours, and self-driving c
         \hline
         $C_{i}$	 &the $i$ th vehicle\\
         $t_{i}$	&the Time Headway between $ C_{i} $ and the front vehicle\\
-        $T$	&the average Time Headway vector in a road\\
+        $\bar{T}$	&the average Time Headway vector in a road\\
         $F(t_{i})$ &the distribution function of $t_{i}$\\
-		$S_{i}$	&the variance of the speed of all vehicles in the ith section of the road \\    
-		$V_{i}$	&the average speed of all vehicles in the section of the road  \\
-		$\alpha_{i}$ &congestion evaluation index \\
+		$\bar{V}$	&the variance of the speed of all vehicles in the ith section of the road \\    
+		$V_{i}$	&the average speed of all vehicles in the road  \\
+		$\alpha$ &congestion evaluation index \\
 		$n_i$ &the number of vehicles on a section of the road at a certain moment\\
 		$t_{pi}$ &the length of the peak time \\
 		$Q$ &the traffic flow vector\\
@@ -152,10 +152,10 @@ V=\left [ v_{1},v_{2},...,v_{n-1},v_{n} \right ]^{T}
 \begin{equation}
 D=[P^{T}(2:n)-P^{T}(1:n-1),0]^{T}
 \end{equation}
-\indent $V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which obeys normal distribution.  $T$ is the headway of all drivers or self-driving systems. And $K$ is all vehicles' types. The meaning and value of the headway will be given in \ref{headway}. There are two kinds of values in $k_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
+\indent $V$ is a column vector for all vehicle speed, which unit is km/h. The initial value of $V$ is a random vector which follows normal distribution.  $T$ is the headway of all drivers or self-driving systems. And $K$ is all vehicles' types. The meaning and value of the headway will be given in \ref{headway}. There are two kinds of values in $k_{i}$, $0$ means self-driving car and $1$ means manual-driving car.
 
 \subsubsection{The Integral Structure of Cellular Automata}
-The model of Cellular Automata is mainly based the following aspects\\
+The model of Cellular Automata is mainly based on the following aspects\\
 
 \indent\textbf{Speed change mechanism\\}
 \indent The change of speed is based on the Time Headway, the distance from the front car, the speed of the front car, and the type of the vehicle. The model will be given in \ref{velocity change}.
@@ -164,8 +164,8 @@ The model of Cellular Automata is mainly based the following aspects\\
 \indent The calculation of position and vehicle distance is based on the speed ($V$) and the position of the last moment. The model will be given in \ref{velocity change}.
 
 \indent\textbf{Changes in the number of cars\\}
-\indent The inflow of vehicles in a section of the road consists of two parts. The first part is the inflow of the starting position of the road. The second part is the flow of cars from auxiliary road to the main road. \\
-\indent The outflow of vehicles include the outflow of the end position of the road and the flow from the main road to auxiliary road.\\
+\indent The inflow of vehicles in a section of the road consists of two parts. The first part is the inflow of the starting position in the road. The second part is the inflow of cars from auxiliary road to the main road. \\
+\indent The outflow of vehicles includes the outflow of the end position of the road and the outflow from the main road to auxiliary road.\\
 \indent And the changes in the number of cars will be analyzed in the detail in \ref{changes of cars}.\\
 
 \indent\textbf{The integral structure of single step of the simulation\\}
@@ -179,33 +179,37 @@ The model of Cellular Automata is mainly based the following aspects\\
 \subsection{Time Headway}
 \label{headway}
 \subsubsection{The Set of Time Headway}
-\indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the TH between the two cars needs to be greater than a minimum safety TH. The safety TH is depended on the reaction time of person.\\
+\indent Time Headway (TH) is the time difference between the two adjacent vehicles passing through the same location. In general, the TH is a random value. But when people drive a car, the front car has an emergency brake or deceleration in a very short time, the following car driver can respond only after a certain reaction time. It is easy to cause traffic accidents if the distance between the two cars is two small. So the TH between the two cars needs to be greater than a minimum safety TH. The safety TH is depended on the driving habit of the driver.\\
 \indent The TH of two vehicles is determined by the subjective judgment of the driver. But generally speaking, when the rear car is far away from the front car, the rear car will speed up and make the TH of two cars smaller. When the driver of rear is aware that the TH is too small, as the TH of reality is less than the TH he expected, the driver will slow down and increase the TH between two cars.\\
-\indent Then the ratio distribution of the headway of the car needs to be determined. It is known from the previous research\upcite{TH}, when there is a minimum safety TH and crowding, the shift negative exponential distribution(SNED) can well reflect the distribution of the headway of a large number of vehicles.\\
+\indent Then the ratio distribution of the headway of the car needs to be determined. It is known from the previous researches\upcite{TH} that, when there is a minimum safety TH and crowding, the shift negative exponential distribution(SNED) can well fit the distribution of the TH of a large number of vehicles.\\
 \indent So the random variable follows the SNED model. It indicates,
 \begin{equation}
-		F(t)=1-e^{-\frac{t_{i}-\tau }{T-\tau}}
+\label{TH}
+		F(t)=1-e^{-\frac{t-\tau }{T-\tau}}
 \end{equation}
-where $T$ is the average Time Headway in a road.\\ 
+where $F(t)$ is the distribution function of TH, $T$ is the average TH in a road, $\tau $ is the minimum safety TH. \\ 
 
-\indent In traffic flow theory, traffic flow density\\
+\noindent\textbf{The calculation of parameter $T$ \\}
+
+In traffic flow theory, traffic flow density\\
 \begin{equation}
 \begin{split}
  K &= \frac{Q}{V}\\
  D_{a}&=\frac{1}{K}=\frac{V}{Q}
 \end{split}
 \end{equation}
-where $K$ is the traffic flow density, $Q$ is the traffic flow, $V$ is the average velocity of vehicles and $D_{a}$ is the average distance of vehicles.\\
+where $K$ is the traffic flow density, $Q$ is vehicle flow per unit time, $V$ is the average velocity of vehicles and $D_{a}$ is the average distance of vehicles.\\
 \indent Because the average Time Headway is the ratio of the average distance $D_{a}$ to the average velocity $V $,\\
 \begin{equation}
+\label{T}
 	T=\frac{D_{a}}{V}=\frac{1}{Q}
 \end{equation}
-\indent It indicates the average distance is the reciprocal of the traffic flow.
-\subsubsection{The generation of Time Headway following SNED model}
+\indent It indicates the average distance is the reciprocal of the traffic flow. Plugging \ref{T} into the equation for \ref{TH} ,we obtain the distribution of TH.
+\subsubsection{The generation of TH by SNED model}
 \indent When the parameters $T, \tau $ in $F(t)$ are obtained, we need to produce a large number of data that follows the SNED.\\
-\indent MATLAB can only produce a group of data following the uniform distribution. To produce a group of data following $ F(t_{i})=1-e^{-\frac{t_{i}-\tau}{T-\tau}},t_{i}>\tau $, we consider a random variable, 
+\indent MATLAB can only produce a group of data following the common distribution. To produce a group of data following $ F(t_{i})=1-e^{-\frac{t_{i}-\tau}{T-\tau}},t_{i}>\tau $, we consider a random variable, 
 \begin{equation}
-	t_{i}=F^{-1}(t_{i})=G(u)=\tau-(T-\tau)\cdot ln(1-u)
+	t_{i}=F^{-1}(t_{i})=G(u)=\tau-(T-\tau)\cdot \ln(1-u)
 \end{equation}
 \indent $G(u)$ is the inverse function of $F(t)$.\\
 \indent When $ u \sim U(0,1) $, for some constant number $t_{0}>\tau$,\\
@@ -220,33 +224,33 @@ where $K$ is the traffic flow density, $Q$ is the traffic flow, $V$ is the avera
 \end{equation}
 \indent Because the minimum Time Headway is $\tau$, $ t_{i} $must be larger than $\tau$ ,so\\
 \begin{equation}
-	F(\tau)=P{t_{i}<\tau}=0
+	F(\tau)=P(t_{i}<\tau)=0
 \end{equation}
 \begin{equation}
 	P\{t_{i} \leqslant t_{0} \}=F(t_{0})
 \end{equation}
-\indent It indicates $t$ follows the SNED $F(t_{0})$. Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, function type random variable follows SNED with parameters $\tau , T $. \\
+\indent It indicates $t$ follows the SNED $F(t_{0})$. Therefore, the conclusion is obtained that when $ u \sim U(0,1) $, the random variable $t=G(u)$ follows SNED.\\
 \indent Vector $U$ is input, of which the element follows uniform distribution. And the output vector $T=\tau-(T-\tau)\cdot \ln(1-U)$ follows SNED distribution.
 
 
 \subsection{The model of calculating $P$ and $D$}
 \subsubsection{Calculation of the initial $P$}
-\indent $P$ is a column vector including the location of all the vehicles (the unit of $P$ is km). With the process of simulation, $P$ is a vector that varies orderly. So we only need to consider how to determine the initial value of $P$.\\
-\indent In our CA model, vehicles are distributed across the whole road from the beginning of simulation. And we set the difference between every startMilepost and endMilepost as the section. From the given data sheet, we know that the traffic flow is different in different section of the road. So the distribution of vehicles is not uniform.\\
-\indent At the same time, the conclusion is obtained that the length of each section of the road is about 1 to 2 kilometers, and every road has about dozens of sections. So in one section of the road, the distribution has little influence on the whole distribution of vehicles. Therefore, we suppose that in every one section of road, the distribution of the vehicles is uniform. \\
-\indent From the given data sheet, we can get the start and end, The proportion of traffic flow in the peak period accounts for 8\% of the whole and $Q_{i}$ in every section of the road. By calculating, we can get the length of every section $l_{i}$ and the number of vehicles $n_{i}$ at some moment.\\
-\indent We discuss the value of $n_{i}$ in two situation between the perus hour and non-peak time of the vehicle. 
+\indent $P$ is a column vector including the location of all the vehicles (the unit of $P$ is mile). With the process of simulation, $P$ is a vector that varies orderly. So we only need to consider how to determine the initial value of $P$.\\
+\indent In our CA model, vehicles are distributed across the whole road at the beginning of simulation. The road is segmented through the given data sheet. From the given data sheet, we know that the traffic flow is different in different section of the road. So the distribution of vehicles is not uniform.\\
+\indent At the same time, the conclusion is obtained that the length of each section of the road is about 1 to 2 miles, and every road has about dozens of sections. So in one section of the road, the distribution has little influence on the whole distribution of vehicles. Therefore, we suppose that in every section of road, the distribution of the vehicles is uniform. \\
+\indent From the given data sheet, we can get the start and end of every section. The proportion of traffic flow in the peak period accounts for 8\% of the whole traffic flow. By calculating, we can get the length of every section $l_{i}$ and the number of vehicles $n_{i}$ at some moment.\\
+\indent We discuss the value of $n_{i}$ in two situation between the peak time and non-peak time of the vehicle. 
 \begin{equation}
 	n_{i}=\begin{cases}
 	&\frac{0.08Q}{3600t_{1}}\cdot\frac{l_{i}}{V_{i}} \indent\indent\indent \indent\quad\text{\,\,in the peak time }\\ 
 	&\frac{0.92Q}{3600(24-t_{1})}\cdot\frac{l_{i}}{V_{i}}\indent\indent\indent \quad\text{in the non-peak time } 
 	\end{cases}
 \end{equation}
-\indent While $v_{i}$ means the average speed of cars and $t_{i}$ is the length of the rush hour.\\
+where $v_{i}$ means the average speed of cars and $t_{i}$ is the length of the peak hour.\\
 \begin{equation}
-	p_i=(i-1)\cdot\frac{l_{n}}{n_{i}}+p_{start} \indent \indent	i=1,2,3,…n
+	p_i=(i-1)\cdot\frac{l_{n}}{n_{i}}+p_{s} \indent \indent	i=1,2,3,…n
 \end{equation}
-where $p_{start}$ is the start mile post.\\
+where $p_{s}$ is the start mile post.\\
 \indent The $p_{i}$ refers to the distance between the $i$th car and the starting point of the road.
 
 \subsubsection{Calculation of $D$}
@@ -261,11 +265,11 @@ After we get the position vector $P$ of all vehicles, we can update the vehicle 
 \subsection{The model of calculating $V$}
 \label{velocity change}
 \subsubsection{$\Delta V$ of Manual-driving car}
-Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway. The difference between actual and expected Time Headway is
+Because people want to keep their time headway as stable as possible, the first part of speed change is based on time headway. The difference between actual and expected time headway is
 \begin{equation}
 	\Delta t_{i}=t_{i}-\frac{d_{i}}{v_{i}}
 \end{equation}
-\indent We first directly put $\Delta t$ as the coefficient of vehicle acceleration. But we find the range of T is very large. So we use tanh function which is widely used in Neural network to normalize it.\\
+\indent Initially, We directly put $\Delta t$ as the coefficient of vehicle acceleration. But we find the range of T is very large. So we use tanh function which is widely used in Neural Network to normalize it.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5cm]{tanh.eps}}
 	\caption{Normalization of $\Delta t_{i}$ by tanh function}
@@ -282,8 +286,8 @@ where $t_n=0$.\\
 \begin{equation}
 	\Delta V_{1}=K_{t}.*A
 \end{equation}
-\indent where A is a vector of random $a_{i}$, and $a_{i}$ is the maximum acceleration of the $i_{th}$ vehicle with uniform distribution. The unit of $a_{i}$ is $m/s^{2}$ and $a_{i}\sim U(1.1,2.1)$.\\
-\indent When the speed of the rear car is higher than that of the front car, the acceleration of the rear car will be reduced to prevent pileup. The velocity variation $\Delta V_{2}$ caused by reducing acceleration in advance.
+where A is a vector of random $a_{i}$, and $a_{i}$ is the maximum acceleration of the $i_{th}$ vehicle with uniform distribution. The unit of $a_{i}$ is $m/s^{2}$ and $a_{i}\sim U(1.1,2.1)$.\\
+\indent When the speed of the rear car is higher than that of the front car, the acceleration of the rear car will be reduced to prevent pileup. The velocity variation $\Delta V_{2}$ is caused by reducing acceleration in advance.
 \begin{equation}
 \begin{split}
 	\Delta v_{2}(i)=k(v(i)-v(i+1))\\
@@ -291,13 +295,13 @@ where $t_n=0$.\\
 \end{split}
 \end{equation}
 where $v_2(n)=0$.\\
-\\Through the experiment, we set $k$ to 0.15. And the amount of change in the speed of a single simulation step is
+\indent Through the experiment, we set $k$ to 0.15. And the amount of change in the speed of a single simulation step is
 \begin{equation}
 \Delta V=\Delta V_1-\Delta V_2
 \end{equation}
 
 \subsubsection{$\Delta V$ of Self-driving car}
-The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a man. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.\\
+The analysis of velocity variation $\Delta V_{1}$ caused by $\Delta T$ is basically the same with the Manual-driving car. But the precision of autopilot is much higher. The Time Headway of an automatic driving vehicle can be shorter than that of a driver. So we can set the Time Headway of automatic to be a constant. If $k_i=0$,$t_i=2$.\\
 \indent In addition to having less TH time, autopilot can have a more stable speed. We discuss the speed according to the type of car and it's front car.\\
 
 \textbf{Cooperation between self-driving cars \\}
@@ -320,76 +324,80 @@ v_i=v_i+dv& else
 \end{matrix}\right.
 \end{equation}
 where $r$ is a random variable, and $dv$ is calculated the same as manual-driving car.
-\subsection{Model of evaluation criteria for the degree of congestion}
-\label{evaluation criteria}
-\subsubsection{Use $V_{i}$ to evaluate the degree of congestion}
-\begin{itemize}
-\item{\textbf{When there is little congestion.} \indent When the speed distribution of all the vehicles on the road is very uniform, or even the speed of each vehicle is almost the same, the vehicles on the whole section of road needn't speed up or speed down. Each vehicle can keep the same fast speed, and because every two vehicles can be regarded as relatively stationary, there will almost be no congestion. Because the speed distribution is very uniform, the deviation between the speed and the average speed of all the vehicles is small.}
-\end{itemize}
-\begin{itemize}
-\item{\textbf{When there is some congestion.} When there is a congestion on a road, the average velocity of the vehicles must be slow. When there is a congestion only in one part of the road, the velocity in this part must be much lower than the average velocity $ V_{i} $. So the speed distribution must be not uniform. Therefore, the deviation between the speed and the average speed of each vehicle is large. }
-\end{itemize}
 
-\begin{itemize}
-\item{\textbf{How to evaluate the degree of congestion by $V_{i}$.} The conclusion is obtained that the degree of congestion must be related with the average speed of the speed of all vehicles in the section of the road and the deviation between the speed and average speed of all the vehicles.}
-\end{itemize}
-
-\subsubsection{Use $\alpha_{i}$ to evaluate the degree of congestion}
-\indent For some section of the road, at some moment $t$, the velocity of every vehicle can be obtained. So we can use $ V_{i} $ as the first index to evaluate the degree of congestion. Therefore, the smaller $V_{i}$ of a road is, the more serious the crowding the road is.
-
-\begin{itemize}
-\item{\textbf{How to evaluate the degree of congestion by $\alpha_{i}$}. And we use the standard deviation of the speed of all the vehicles $S_{i}$ to evaluate the degree of congestion. However, the larger the average velocity is, the larger the absolute value of the deviation is. To represent the degree of the road more objectively, we use relative deviation $\alpha_{i} =\frac{S_{i } }{V_{i}} $ as the congestion evaluation index. The larger $\alpha_{i}$ is, the more serious the crowding the road is.}
-\end{itemize}
-\subsubsection{Comprehensive evaluation by $V_{i}$ and $\alpha_{i}$}
-
-\indent  Our evaluation criteria for the degree of congestion includes: $V_{i}, \alpha_{i} $. More crowding road must have a smaller $V_{i}$ and a larger $alpha_{i}$.\\
+\subsection{The model of generating K}
 
 \subsection{The model of changes in the number of cars}
 \label{changes of cars}
 \subsubsection{Monte Carlo Method}
-\indent Next, we consider the Monte Carlo method to simulate the change in the number the vehicle.\\
-\indent Monte Carlo method is a stochastic simulation method based on probability and statistical theory. It is a method of using random numbers to solve many computational problems. In order to obtain the approximate solution of the problem, the problem is connected with a certain probability model. \\
+\indent Next, we consider the Monte Carlo method to simulate the change in the number of vehicles.\\
+\indent Monte Carlo method is a stochastic simulation method based on probability and statistical theory. It is a method of using random numbers to solve many computational problems. In order to obtain the approximate solution of the problem, the problem is connected with a certain probability model. 
 \subsubsection{The Establishment of the Model}
-\indent From the known data, we can get the traffic inflow on each road section of the day. The value of net inflow or net outflows of cars is the difference between the traffic flow of two adjacent road sections for one day.\\
-\indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars at unit time as $\Delta n$. And the traffic conditions on the road divided into the peak hour and non peak hour. We can get
+\indent From the known data, we can get the traffic inflow on each road section of the day. The value of net inflow or net outflows of cars is the difference between the traffic flow of two adjacent road sections.\\
+\indent In the model of the cellular automata, the time to simulate one step is a second. So we should consider the net flow of cars per unit time as $\Delta n$. And the traffic conditions on the road divided into the peak time and non-peak time. We can get
 \begin{equation}
 	\Delta n=\begin{cases}
 	&(Q_{i}-Q_{i-1})\cdot \frac{0.08}{t_{i}\cdot 3600} \indent\indent \indent\quad\text{\,\,in the peak time }\\ 
 	&(Q_{i}-Q_{i-1})\cdot \frac{0.92}{(24-t_{i})\cdot 3600}\indent\indent \quad\text{in the non-peak time } 
 	\end{cases}
 \end{equation}
-\indent Where i means the $i$th road section. \\
-\indent We use the matrix $P_{change}$ to represent the probability distribution of all the road sections inflow and outflow. So the matrix can be expressed as
+where i means the $i$th road section. \\
+\indent We use the matrix $P_{c}$ to represent the probability distribution of all the road sections inflow and outflow. So the matrix can be expressed as
 \begin{equation}
-	P_{change}=[\Delta n_1, \Delta n_2,\Delta n_3,\cdots, \Delta n_n]
+	P_{c}=[\Delta n_1, \Delta n_2,\Delta n_3,\cdots, \Delta n_n]
 \end{equation}
 \indent By calculation, we found that $\Delta n$ is a decimal less than 1. We can't use this value directly as the net flow of cars in each simulation step of the cellular automata. Because the number of vehicles added or reduced in each step must be an integer.\\
 \indent So we use the Monte Carlo Method to simulate.\\
 \indent We generate a random vector R\\
 \begin{equation}
-	R_{random}=[r_1, r_2,r_3,\cdots, r_n]
+	R=[r_1, r_2,r_3,\cdots, r_n]
 \end{equation}
-\indent the length of which is the quantity of road sections as $n$. And the range of the random number is 0 to 1.\\
+of which the length is the quantity of road sections as $n$. And the range of the random number is 0 to 1.\\
 \indent The situation of vehicles flow is 
 \begin{equation}
 	\Delta n_{i}=\begin{cases}
-	&0 \indent\indent\indent \quad\text{\,\,if \,\, $P_{change}[i] < R_{random}[i]$}\\ 
-	&1 \indent\indent\indent \quad\text{\,\,if \,\, $P_{change}[i] > R_{random}[i]$} 
+	&0 \indent\indent\indent \quad\text{\,\,if \,\, $P_{c}[i] < R[i]$}\\ 
+	&1 \indent\indent\indent \quad\text{\,\,if \,\, $P_{c}[i] > R[i]$} 
 	\end{cases}
 \end{equation}
-\indent It means when the value of $P_{change}[i]$ is smaller than the value of $R_{random}[i]$, $\Delta n_{i}$ is assigned to 1. When the value of $P_{change}[i]$ is larger,  $\Delta n_{i}$ is assigned to 0.
+\indent It means when the value of $P_{c}[i]$ is smaller than the value of $R[i]$, $\Delta n_{i}$ is assigned to 1. When the value of $P_{c}[i]$ is larger,  $\Delta n_{i}$ is assigned to 0.
+
+\subsection{Model of evaluation criteria for the degree of congestion}
+\label{evaluation criteria}
+\subsubsection{Use $\bar{V}$ to evaluate the degree of congestion}
+\begin{itemize}
+	\item{\textbf{When there is little congestion.} \indent When the speed distribution of all the vehicles on the road is very uniform, or even the speed of each vehicle is almost the same, the vehicles on the whole section of road needn't speed up or speed down. Each vehicle can keep the same fast speed, and because every two vehicles can be regarded as relatively stationary, there will almost be no congestion. Because the speed distribution is very uniform, the deviation between the speed and the average speed of all the vehicles is small.}
+\end{itemize}
+\begin{itemize}
+	\item{\textbf{When there is some congestion.} When there is a congestion on a road, the average velocity of the vehicles must be slow. When there is a congestion only in one part of the road, the velocity in this part must be much lower than the average velocity $ \bar{V} $. So the speed distribution must be not uniform. Therefore, the deviation between the speed and the average speed of each vehicle is large. }
+\end{itemize}
+
+\begin{itemize}
+	\item{\textbf{How to evaluate the degree of congestion by $\bar{V}$.} The conclusion is obtained that the degree of congestion must be related with the average speed of the speed of all vehicles in the section of the road and the deviation between the speed and average speed of all the vehicles.}
+\end{itemize}
+
+\subsubsection{Use $\alpha$ to evaluate the degree of congestion}
+\indent For some section of the road, at some moment $t$, the velocity of every vehicle can be obtained. So we can use $ \bar{V} $ as the first index to evaluate the degree of congestion. Therefore, the smaller $\bar{V}$ of a road is, the more serious the crowding the road is.
+
+\begin{itemize}
+	\item{\textbf{How to evaluate the degree of congestion by $\alpha$}. And we use the standard deviation of the speed of all the vehicles $S$ to evaluate the degree of congestion. However, the larger the average velocity is, the larger the absolute value of the deviation is. To represent the degree of the road more objectively, we use relative deviation $\alpha =\frac{S}{\bar{V}} $ as the congestion evaluation index. The larger $\alpha$ is, the more serious the crowding the road is.}
+\end{itemize}
+\subsubsection{Comprehensive evaluation by $\bar{V}$ and $\alpha$}
+
+\indent  Our evaluation criteria for the degree of congestion includes: $\bar{V}, \alpha $. More crowding road must have a smaller $\bar{V}$ and a larger $alpha_{i}$.\\
+
 \section{Simulation Result and Data Analysis}
 \subsection{The effects of lanes}
 \subsubsection{The effects of the number of the lanes}
 \label{lanes}
 We discuss the effects on our model from the number of lanes of roads.\\
-\indent We use $V_{i}, \alpha_{i}$ index to evaluate the degree of congestion. The number of lanes of roads increases 1,2,3 respectively. And a simulation within 60 minutes is implemented.\\
-\indent The figure below shows the variance of $V_{i}$ and $\alpha_{i}$ within 60 minutes when different number of lanes of roads is added.\\
+\indent We use $\bar{V}, \alpha$ index to evaluate the degree of congestion. The number of lanes of roads increases 1,2,3 respectively. And a simulation within 60 minutes is implemented.\\
+\indent The figure below shows the variance of $\bar{V}$ and $\alpha$ within 60 minutes when different number of lanes of roads is added.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5cm]{lanes.eps}}
 	\caption{the influence of adding new lane}	
 \end{figure}
-\indent From the above figure, when the number of lanes of roads increases, $V_{i}$ will remarkably increase, and the value of $\alpha_{i}$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. 
+\indent From the above figure, when the number of lanes of roads increases, $\bar{V}$ will remarkably increase, and the value of $\alpha$ will remarkably decrease. And it means that when the number of lanes increases, there will be less congestion, and the road will be more smooth. 
 \subsubsection{When to set lanes to be dedicated to the self-driving cars}
 \indent For each road, we can get the tipping point where we can set up accommodation lanes to make the road more smooth.\\
 \indent We took the 90th road for example. We compare the $V_{90}$ when two and no accommodation lanes are set up with different proportion of self-driving cars.\\
@@ -401,7 +409,7 @@ We discuss the effects on our model from the number of lanes of roads.\\
 \indent In the above figure, there is an intersection of the two curves. The intersection can be regarded as a tipping point when we will need to set up accommodation lanes for self-driving cars. We can know that the tipping point is approximately $35\%$.\\
 \indent When the proportion of self-driving is lower than $35\%$, because the number of the self-driving cars is small, the utilization rate of the road is not high, Therefore, $V_{90}$ is lower than the road without accommodation lanes. \\
 \indent When the proportion of self-driving is higher than 35\%, because the self-driving cars will drive on the road smoothly at a fast velocity. The utilization rate of the road is high. Therefore, $V_{90}$ is larger, and the road is more smooth.\\
-\subsection{The effects of percentage of self-driving in Peak and Non-Peak travel hours}
+\subsection{The effects of percentage of self-driving in Peak and Non-Peak travel time}
 The traffic flow is influenced by percentage of self-driving in Peak and Non-Peak travel hours. We discuss the situation in Peak and Non-Peak travel hours. 
 \subsubsection{the effects of Peak and Non-Peak travel hours}
 \begin{itemize}
@@ -453,32 +461,32 @@ The traffic flow is influenced by percentage of self-driving in Peak and Non-Pea
 \end{figure}
 \indent\indent In Peak travel hours, the density of the middle part of the road is so large. Therefore, there must be a congestion in the middle part of the road.
 \subsubsection{The Effects of Different Proportion of Self-Driving }
-When different proportion of self-driving are set, we use the evaluation criteria $V_{i}, \alpha_{i}$ in \ref{evaluation criteria} to evaluate the degree of congestion. \\
-\indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes are obtained respectively.\\
-\indent The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
+When different proportion of self-driving are set, we use the evaluation criteria $\bar{V}, \alpha$ in \ref{evaluation criteria} to evaluate the degree of congestion. \\
+\indent When the proportion of self-driving is $0\%, 10\%, 50\%, 90\%$, the image of variations of $\bar{V}$ and $\alpha$ within 60 minutes are obtained respectively.\\
+\indent The figure below shows within the peak travel hours, the variations of $\bar{V}$ and $\alpha$ within 60 minutes.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5.2cm]{auto_all(5).eps}}
 	\caption{The proportion of self-driving cars(peak travel hours)}	
 \end{figure}
-\indent The figure below shows within the peak travel hours, the variations of $V_{i}$ and $\alpha_{i}$ within 60 minutes.\\
+\indent The figure below shows within the peak travel hours, the variations of $\bar{V}$ and $\alpha$ within 60 minutes.\\
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5.2cm]{auto_all(5)-non-peak.eps}}
 	\caption{The proportion of self-driving cars(non-peak travel hours)}	
 \end{figure}
-\indent The above figure shows in peak travel hours or non-peak hours, when the proportion of self-driving increases, the $V_{i}$ will increase and the $\alpha_{i}$ will decrease, which indicates the congestion will decrease with the proportion of self-driving increasing.\\
-\indent And when proportion transfers from $50\% $ to $90\% $, the variation is remarkable. When the proportion reach $90\%$, the $V_{i}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
+\indent The above figure shows in peak travel hours or non-peak hours, when the proportion of self-driving increases, the $\bar{V}$ will increase and the $\alpha$ will decrease, which indicates the congestion will decrease with the proportion of self-driving increasing.\\
+\indent And when proportion transfers from $50\% $ to $90\% $, the variation is remarkable. When the proportion reach $90\%$, the $\bar{V}$ approaches the maximum allowed speed 60 miles per hour. So the operation efficiency of the road approaches maximum value. And there is little congestion occurred. \\
 
 \subsection{The effects of cooperating systems}
 And then we discuss the effect of the cooperating systems of the cellular automaton. The rule of the cooperating system has been established earlier. \\
-\indent We mainly use two indexes of $V_{i}$ and $\alpha_{i}$ to analyze the model. So taking advantage of the rule of our cooperative relationship, we simulate the cellular automaton under the different percentage of the self-driving cars for 4 roads in one hour. 
+\indent We mainly use two indexes of $\bar{V}$ and $\alpha$ to analyze the model. So taking advantage of the rule of our cooperative relationship, we simulate the cellular automaton under the different percentage of the self-driving cars for 4 roads in one hour. 
 \begin{figure}[H]
 	\centerline{\includegraphics[height=5.2cm]{cooperate.eps}}
 	\caption{The influence of self-driving car cooperation}	
 \end{figure}
 \indent The numbers from 1 to 4 on the abscissa refer to four different roads. Every road has six data and set the two adjacent data as a group which refers to the situations that the proportion of self-driving is 10\%, 50\% to 90\%. In each group, the column on the left indicates no cooperating rules adding, and is opposite to the right.\\
-\indent We can know from the figure that $V_{i}$ has increased and $\alpha_{i}$ has decreased when adding the cooperation rules. And different roads have the similar situations.\\
+\indent We can know from the figure that $\bar{V}$ has increased and $\alpha$ has decreased when adding the cooperation rules. And different roads have the similar situations.\\
 \indent And we also can know from the figure that the more dense traffic flow is, the more obvious the raise of the speed is. Because when the traffic flow is dense, it's easy to cause a traffic jam and make the vehicle slow down.\\
-\indent Equally, the overall impact of the $V_{i}$ and $\alpha_{i}$ about the cooperation rules is slightly small as the self-driving vehicle can accurately control the speed of itself.
+\indent Equally, the overall impact of the $\bar{V}$ and $\alpha$ about the cooperation rules is slightly small as the self-driving vehicle can accurately control the speed of itself.
 \section{Model Validation}
 \subsection{The Hydromechanics model in Traffic Flow}
 The related search use The Hydromechanics model to describe the process of traffic flow.
@@ -588,6 +596,8 @@ When $K_{2}>K_{1}$, it means the traffic flow wave moves from a low density to a
 \end{itemize}
 \newpage
 \section{A letter to the Governor's office}
+\noindent Dear Officials,\\
+\indent It's our honor to help you with analyzing the effects of allowing self-driving, cooperating vehicles on capacity of highways in the Greater Seattle area. We are writing this letter to report our latest ﬁndings. \\
 As the population grows and the number of private cars has increasingly becoming large, the drives will experience long delays when there is congestion in the road. However, it costs a lot to build a new road, and the fundamental problem still can not be solved.\\
 \indent With the progress of science and technology, the technology of self-driving has become more and more mature. We can consider increasing the proportion of self-driving to reduce road congestion.
 In our paper, our model discuss the influence on the traffic flow from different proportion of self-driving in peak travel hours and non-peak travel hours. Because the self-driving is controlled by sensors and computers, they will spend little time to make a corresponding reaction. Therefore, the Time Headway between two self-drivings can be very short, and the distance between them can be close.\\ \
@@ -597,8 +607,8 @@ We make some suggestion for some policy changes:\\
 \indent 1.Give allowance or impose less taxes when citizens purchase self-driving.\\
 \indent 2.More road toll is paid when the manual-driving passes the toll-gate.\\
 \indent 3.When the proportion of self-driving is greater than 35\%, use a few lanes as a special driveway for self-driving vehicles.\\
-\indent Therefore, use a large proportion of self-driving can reduce the congestion effectively. If our suggestion is adopted, the transportation in Washington will be very smooth, and citizens will experience a comfortable and time-saving travel. 
-
+\indent Therefore, use a large proportion of self-driving can reduce the congestion effectively. If our suggestion is adopted, the transportation in Washington will be very smooth, and citizens will experience a comfortable and time-saving travel. \\
+\indent We believe our model is useful for management of self-driving cars in the future. You're welcome to contact us at any time for further cooperation. Yours Sincerely, Team \# 55869
 
 \section{References}
 \begin{thebibliography}{99}
